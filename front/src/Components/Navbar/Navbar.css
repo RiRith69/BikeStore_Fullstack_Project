@@ -1,0 +1,77 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: -10px;
+  box-shadow: 0 1px 3px -2px black;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bike-logo {
+  width: 150px;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  font-size: 23px;
+}
+.nav-menu li a {
+  color: black;
+  text-decoration: none;
+}
+
+.nav-menu li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+}
+.nav-menu hr {
+  border: none;
+  width: 80%;
+  height: 3px;
+  border-radius: 10px;
+  background-color: orange;
+}
+.nav-login-cart {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+}
+.nav-login-cart button {
+  width: 120px;
+  height: 50px;
+  outline: none;
+  border: 1px solid orange;
+  border-radius: 75px;
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+  background: white;
+  cursor: pointer;
+}
+.nav-login-cart button:active {
+  background: orange;
+  color: whitesmoke;
+}
+.nav-cart {
+  width: 50px;
+}
+.nav-cart-count {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  margin: -35px;
+  margin-left: -55px;
+  margin-bottom: 2px;
+  border-radius: 11px;
+  font-size: 14px;
+  background-color: orange;
+  color: white;
+}
