@@ -1,4 +1,4 @@
-import Brand from "../Models/Brand.js";
+import Brand from "./Brand.js";
 
 async function createBrand() {
   // Assuming this is part of an async function

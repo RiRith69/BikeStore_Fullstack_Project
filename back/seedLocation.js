@@ -1,4 +1,4 @@
-import Location from "../Models/Location.js";
+import Location from "./src/Models/Location.js";
 const location1 = await Location.create({
   street: "182",
   district: "Daun Penh",

@@ -1,8 +1,7 @@
 // src/seed/seedAll.js
-import { sequelize } from "../DB/database.js";
-import Location from "../Models/Location.js"; // <-- UNCOMMENT THIS
-import User from "../Models/User.js"; // <-- UNCOMMENT THIS
-import bcrypt from "bcrypt"; // You'll need bcrypt for the beforeCreate hook if it's not already linked in User model definition
+import  sequelize  from "./database.js";
+import Location from "./src/Models/Location.js"; // <-- UNCOMMENT THIS
+import User from "./src/Models/User.js"; // <-- UNCOMMENT THIS
 
 // Make sure your User model has the beforeCreate hook defined within its model file, e.g.:
 // User.beforeCreate(async (user, options) => {
