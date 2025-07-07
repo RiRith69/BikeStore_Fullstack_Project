@@ -6,6 +6,8 @@ import logo from "../Assets/logo.svg";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const brandOptions = ["Giant", "Asuma", "Trek", "Merida", "Polygon"];
+
 
   return (
     <>
@@ -43,11 +45,11 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8">
           <Link to="/cart" className="relative cursor-pointer">
             <svg
-              width="20"
-              height="20"
+              width="32"
+              height="32"
               viewBox="0 0 14 14"
               fill="none"
-              stroke="#615fff"
+              stroke="#2dd4bf"
             >
               <path
                 d="M.583.583h2.333l1.564 7.81a1.17 1.17 0 0 0 1.166.94h5.67a1.17 1.17 0 0 0 1.167-.94l.933-4.893H3.5m2.333 8.75a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0m6.417 0a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0"
@@ -55,13 +57,13 @@ const Navbar = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-5 h-5 rounded-full flex items-center justify-center">
+            <span className="absolute -top-2 -right-3 text-xs text-white bg-teal-400 w-5 h-5 rounded-full flex items-center justify-center">
               3
             </span>
           </Link>
           <Link
             to="/login"
-            className="px-6 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-full transition text-sm"
+            className="px-6 py-2 bg-teal-400 hover:bg-teal-500 text-white rounded-full transition text-sm"
           >
             Login
           </Link>
@@ -123,21 +125,27 @@ const Navbar = () => {
       {/* Mobile Search Overlay */}
       {searchOpen && (
         <div className="fixed inset-0 bg-white z-50 p-4 flex flex-col">
-          <div className="flex items-center mb-4">
+          <div className="flex justify-between mb-4 gap-3">
             <button onClick={() => setSearchOpen(false)} className="mr-2 p-2">
-              <svg width="24" height="24" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+              <svg
+                width="24"
+                height="24"
+                stroke="#4B5563"
+                fill="none"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line x1="19" y1="12" x2="5" y2="12" />       {/* horizontal line */}
+                <polyline points="12 19 5 12 12 5" />           {/* left-pointing arrowhead */}
               </svg>
             </button>
             <input
               autoFocus
               placeholder="Search products..."
-              className="flex-1 border border-gray-400 rounded-full px-4 py-2 outline-none"
+              className="flex-1 max-w-70% border border-gray-400 rounded-full px-4 py-2 outline-none"
             />
           </div>
         </div>
@@ -145,56 +153,104 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-white shadow-md z-40">
-          <div className="px-4 py-2 space-y-4">
-            <Link
-              to="/login"
-              className="block px-4 py-2 bg-indigo-500 text-white rounded-full text-center"
-            >
-              Login
-            </Link>
+        <div className="md:hidden bg-white shadow-md z-40 p-4 space-y-2">
+          {/* Home */}
+          <div className="w-full">
             <Link
               to="/"
-              className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+              className="block w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition"
             >
               Home
             </Link>
-            <Link
-              to="/brands"
-              className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
-            >
-              Brands
-            </Link>
-            <Link
-              to="/bicycles"
-              className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
-            >
-              Bicycles
-            </Link>
-            <Link
-              to="/parts"
-              className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
-            >
-              Bike Parts
-            </Link>
           </div>
-        </div>
+        
+          {/* Brands dropdown */}
+          <div className="group w-full">
+            <button className="flex justify-between items-center w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition">
+              Brands
+              <span className="transition-transform duration-200 group-hover:rotate-180">▾</span>
+            </button>
+        
+            <div className="max-h-0 overflow-hidden group-hover:max-h-96 transition-all duration-300 ease-in-out">
+              <div className="flex flex-col mt-2 border border-gray-200 rounded bg-white shadow-inner">
+                {brandOptions.map((brand) => (
+                  <Link
+                    key={brand}
+                    to={`/brands/${brand.toLowerCase()}`}
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  >
+                    {brand}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        
+          {/* Categories list */}
+          <div className="flex flex-col w-full space-y-2">
+            {[
+              "Mountain Cycle",
+              "Road Cycle",
+              "City Cycle",
+              "Kids Cycle",
+              "Hybrid Cycle",
+              "Touring Cycle",
+              "Electronic Cycle",
+              "Bike Parts",
+            ].map((item) => (
+              <Link
+                key={item}
+                to={`/${item.toLowerCase().replace(" ", "")}`}
+                className="block w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition"
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
+        </div>          
       )}
 
       {/* Sub-navigation Desktop */}
       <div className="hidden md:block sticky top-0 z-30 w-full border-b border-gray-200 bg-gray-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 xl:px-32 py-3 flex gap-8 text-sm font-medium">
-          {["Home", "Brands", "Bicycles", "Bike Parts"].map((item) => (
+        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 xl:px-32 py-3 flex gap-8 text-lg font-medium relative">
+          {/* Static items */}
+          <Link
+            to="/"
+            className="hover:text-teal-600 transition py-1 border-b-2 border-transparent hover:border-teal-600"
+          >
+            Home
+          </Link>
+
+          {/* Brands with dropdown */}
+          <div className="relative group">
+            <button className="hover:text-teal-600 transition py-1 border-b-2 border-transparent group-hover:border-teal-600">
+              Brands ▾
+            </button>
+            <div className="absolute top-full left-0 w-40 bg-white border border-gray-200 shadow rounded hidden group-hover:block z-40">
+              {brandOptions.map((brand) => (
+                <Link
+                  key={brand}
+                  to={`/brands/${brand.toLowerCase()}`}
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                >
+                  {brand}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {["Mountain", "Road", "City", "Kids", "Hybrid", "Touring", "Electronic", "Bike Parts"].map((item) => (
             <Link
               key={item}
-              to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "")}`}
-              className="hover:text-indigo-600 transition py-1 border-b-2 border-transparent hover:border-indigo-600"
+              to={`/${item.toLowerCase().replace(" ", "")}`}
+              className="hover:text-teal-600 transition py-1 border-b-2 border-transparent hover:border-teal-600"
             >
               {item}
             </Link>
           ))}
         </div>
       </div>
+
     </>
   );
 };

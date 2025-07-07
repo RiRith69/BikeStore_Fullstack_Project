@@ -67,7 +67,7 @@ const Cart = () => {
                 {/* Remove button at top right of product */}
                 <button
                   onClick={() => removeProduct(product.id)}
-                  className="absolute top-2 right-2 text-red-500 hover:text-red-700 text-xl font-bold"
+                  className="absolute top-2 right-2 text-teal-500 hover:text-teal-700 text-xl font-bold"
                   aria-label="Remove product"
                 >
                   ×
@@ -193,7 +193,7 @@ const Cart = () => {
             <span>${total.toFixed(2)}</span>
           </div>
         </div>
-        <button className="w-full mt-6 py-3 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition">
+        <button className="w-full mt-6 py-3 bg-teal-500 text-white rounded hover:bg-teal-600 transition">
           Place Order
         </button>
       </div>
