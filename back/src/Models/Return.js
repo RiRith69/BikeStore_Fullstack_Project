@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../DB/database.js";
+import sequelize from "../DB/database.js";
 
 const Return = sequelize.define("Return", {
   return_date: DataTypes.DATEONLY,
