@@ -1,15 +1,15 @@
-const express = require("express");
-const app = express();
-const port = 3000;
+import { sequelize } from "./src/DB/database.js";
+import setupAssociation from "./src/Models/association.js";
+async function run() {
+  try {
+    setupAssociation();
+    await sequelize.authenticate();
+    console.log("Connect successfully");
 
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Welcome to backend session");
-});
-app.get("/new", (req, res) => {
-  res.send("this is new model in LLM");
-});
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+    await sequelize.sync();
+    console.log("Synchronized successfully");
+  } catch (err) {
+    console.log("Cannot connect to database");
+  }
+}
+run();
