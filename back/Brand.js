@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../DB/database.js";
+import sequelize from "./database.js";
 
 const Brand = sequelize.define("Brand", {
   brand_name: DataTypes.STRING,

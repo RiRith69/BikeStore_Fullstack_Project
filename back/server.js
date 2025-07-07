@@ -1,4 +1,4 @@
-import { sequelize } from "./src/DB/database.js";
+import  sequelize  from "./database.js";
 import setupAssociation from "./src/Models/association.js";
 async function run() {
   try {
