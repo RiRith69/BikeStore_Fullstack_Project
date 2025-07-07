@@ -1,13 +1,19 @@
 import React from "react";
-import "./Item.css";
+
 const Item = (props) => {
   return (
-    <div className="item">
-      <img className="item_image" src={props.image} alt="" />
-      <p>{props.name}</p>
-      <div className="item_price">
-        <div className="item_price_new">${props.new_price}</div>
-        <div className="item_price_old">${props.old_price}</div>
+    <div
+      className="border-2 border-teal-400 rounded-xl shadow-md p-4 bg-white text-center transform transition hover:scale-105 hover:shadow-lg"
+    >
+      <img
+        src={props.image}
+        alt={props.name}
+        className="w-full h-auto rounded-md mb-3"
+      />
+      <p className="text-gray-800 font-medium text-sm sm:text-base">{props.name}</p>
+      <div className="flex justify-center gap-4 mt-2 text-sm sm:text-base">
+        <span className="font-semibold text-teal-500">${props.new_price}</span>
+        <span className="line-through text-gray-400">${props.old_price}</span>
       </div>
     </div>
   );
