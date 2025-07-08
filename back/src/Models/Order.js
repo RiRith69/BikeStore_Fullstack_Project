@@ -2,8 +2,6 @@ import { DataTypes } from "sequelize";
 
 import sequelize from "../DB/database.js";
 
-import sequelize from "../../database.js";
-
 const Order = sequelize.define("Order", {
   order_status: DataTypes.STRING,
   order_date: DataTypes.DATEONLY,

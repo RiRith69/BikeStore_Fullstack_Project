@@ -1,7 +1,8 @@
 // src/seed/seedAll.js
-import sequelize from "./database.js";
-import Location from "./src/Models/Location.js"; // <-- UNCOMMENT THIS
-import User from "./src/Models/User.js"; // <-- UNCOMMENT THIS
+import sequelize from "./src/DB/database.js";
+import Location from "./src/Models/Location.js";
+import User from "./src/Models/User.js";
+import association from "./src/Models/association.js";
 
 // Make sure your User model has the beforeCreate hook defined within its model file, e.g.:
 // User.beforeCreate(async (user, options) => {
@@ -11,27 +12,27 @@ import User from "./src/Models/User.js"; // <-- UNCOMMENT THIS
 
 async function seed() {
   try {
+    association();
     // await sequelize.sync(); // This will create tables. If tables already exist, consider { alter: true } or { force: true } (use force with caution as it drops existing tables)
     await sequelize.sync({ alter: true }); // A safer option for dev: alters tables to match models
     console.log("✅ DB Synced");
 
-    const location1 = await Location.create({
-      street: "182",
-      district: "7 Makara",
+    const location2 = await Location.create({
+      street: "234",
+      district: "Chroy Chongva",
       province: "Phnom Penh",
     });
-    console.log("✅ Location created:", location1.id);
+    console.log("✅ Location created:", location2.id);
 
     // --- THIS IS THE FIX ---
-    const user1 = await User.create({
-      // <--- CALL .create() ON THE USER MODEL, NOT THE LOCATION INSTANCE
-      first_name: "John",
+    const user1 = await location2.createUser({
+      first_name: "Messi",
       last_name: "Doe",
       phone_number: "093123456",
-      email: "john@example.com",
-      password: "Rith@0648", // The beforeCreate hook on User will hash this
-      role: "manager",
-      LocationId: location1.id, // Make sure User model has a LocationId foreign key field and association
+      email: "messi@example.com",
+      password: "messi@0648",
+      role: "Admin",
+      LocationId: location2.id, // Foreign key
     });
     console.log("✅ User created:", user1.id);
 
