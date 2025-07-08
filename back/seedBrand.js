@@ -1,23 +1,32 @@
 import Brand from "./Brand.js";
-
-async function createBrand() {
-  // Assuming this is part of an async function
+const brands = [
+  { brand_name: "Decathlon" },
+  { brand_name: "Specialized" },
+  { brand_name: "Scott" },
+  { brand_name: "Cube" },
+  { brand_name: "Trek" },
+  { brand_name: "Gaint" },
+  { brand_name: "Merida" },
+  { brand_name: "Hero Cycle" },
+  { brand_name: "Waltx" },
+  { brand_name: "Polygon" },
+  { brand_name: "United Bike" },
+  { brand_name: "Flying Pigeon" },
+  { brand_name: "Trinx" },
+  { brand_name: "Yongjiu" },
+  { brand_name: "XDS" },
+  { brand_name: "Toyo" },
+  { brand_name: "Miyata" },
+  { brand_name: "Bridgestone Cycle" },
+  { brand_name: "Asama" },
+  // Add more items...
+];
+async function insertBrands() {
   try {
-    const brand1 = await Brand.create({
-      brand_name: "Giant",
-    });
-
-    console.log("Brand created successfully:", brand1.toJSON()); // Use .toJSON() to log the plain data
-    // Or just log the instance if you want to see its methods too
-    // console.log("Brand created successfully:", brand1);
-
-    // If you need to access properties of the created brand:
-    console.log("Created Brand ID:", brand1.id);
-    console.log("Created Brand Name:", brand1.brand_name);
-  } catch (error) {
-    console.error("Error creating brand:", error);
+    await Brand.bulkCreate(brands);
+    console.log("Brands insert successfully");
+  } catch (err) {
+    console.log("Error inserting", err);
   }
 }
-
-// Call the async function if this is the entry point
-createBrand();
+insertBrands();
