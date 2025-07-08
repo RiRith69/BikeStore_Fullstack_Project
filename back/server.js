@@ -1,11 +1,11 @@
-import  sequelize  from "./database.js";
+import sequelize from "./database.js";
 import setupAssociation from "./src/Models/association.js";
+import "./Brand.js";
 async function run() {
   try {
     setupAssociation();
     await sequelize.authenticate();
     console.log("Connect successfully");
-
     await sequelize.sync();
     console.log("Synchronized successfully");
   } catch (err) {
