@@ -9,6 +9,7 @@ import Return from "./Return.js";
 import Stock from "./Stock.js";
 import User from "./User.js";
 function setupAssociation() {
+  // Rith
   // Location and User
   Location.hasMany(User);
   User.belongsTo(Location);
@@ -21,6 +22,8 @@ function setupAssociation() {
   // Order and payment
   Order.hasOne(Payment);
   Payment.belongsTo(Order);
+
+  // Kja
   //Order and Staff
   User.hasMany(Order);
   Order.belongsTo(User);
