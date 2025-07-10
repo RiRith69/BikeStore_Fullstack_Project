@@ -1,8 +1,6 @@
 import { DataTypes } from "sequelize";
 
 
-import sequelize from "../../database.js";
-
 // Location model
 const Location = sequelize.define("Location", {
   street: DataTypes.STRING,
