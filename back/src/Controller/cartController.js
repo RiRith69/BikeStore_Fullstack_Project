@@ -1,7 +1,7 @@
 import { where } from "sequelize";
-import Order from "../src/Models/Order.js";
-import Product from "../src/Models/Product.js";
-import User from "../src/Models/User.js"
+import Order from "../Models/Order.js";
+import Product from "../Models/Product.js";
+import User from "../Models/User.js"
 
 export const getCart = async (req, res) => {
     try {

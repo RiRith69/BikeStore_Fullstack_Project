@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-import sequelize from "../../database.js";
+import sequelize from "../DB/database.js";
 
 const Order = sequelize.define("Order", {
   order_status: DataTypes.STRING,
