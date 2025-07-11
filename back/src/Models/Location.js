@@ -1,7 +1,5 @@
 import { DataTypes } from "sequelize";
-
-
-import sequelize from "../../database.js";
+import sequelize from "../DB/database.js";
 
 // Location model
 const Location = sequelize.define("Location", {

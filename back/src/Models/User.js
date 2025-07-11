@@ -1,11 +1,11 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../DB/database.js";
-import sequelize from "../../database.js";
 import bcrypt from "bcrypt";
 const User = sequelize.define("User", {
   first_name: DataTypes.STRING,
   last_name: DataTypes.STRING,
-  phone_number: DataTypes.INTEGER,
+  username: DataTypes.STRING,
+  phone_number: DataTypes.STRING,
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -19,6 +19,7 @@ const User = sequelize.define("User", {
     defaultValue: "customer",
     allowNull: false,
   },
+  LocationId: DataTypes.INTEGER,
 });
 User.beforeCreate(async (user, option) => {
   const salt = await bcrypt.genSalt(10);
