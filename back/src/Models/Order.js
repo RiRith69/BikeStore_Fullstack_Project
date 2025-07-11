@@ -7,5 +7,6 @@ const Order = sequelize.define("Order", {
   order_date: DataTypes.DATEONLY,
   shipped_date: DataTypes.DATEONLY,
   shipping_method: DataTypes.STRING,
+  UserId: DataTypes.INTEGER,
 });
 export default Order;

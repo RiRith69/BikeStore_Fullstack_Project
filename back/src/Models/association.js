@@ -8,7 +8,7 @@ import Product from "./Product.js";
 import Return from "./Return.js";
 import Stock from "./Stock.js";
 import User from "./User.js";
-function setupAssociation() {
+export default function setupAssociation() {
   // Rith
   // Location and User
   Location.hasMany(User);
@@ -28,13 +28,19 @@ function setupAssociation() {
   User.hasMany(Order);
   Order.belongsTo(User);
   // Order and Product in Order_Product
-  Product.belongsToMany(Order, { through: Order_Product });
-  Order.belongsToMany(Product, { through: Order_Product });
-  // Order and product in return table
+  // Regular orders
+  Product.belongsToMany(Order, {
+    through: Order_Product,
+  });
+  Order.belongsToMany(Product, {
+    through: Order_Product,
+  });
+
+  // // Returns
   Product.belongsToMany(Order, { through: Return });
   Order.belongsToMany(Product, { through: Return });
+
   // Category and Product
-  Category.hasMany(Product);
-  Product.belongsTo(Category);
+  Category.hasMany(Product, { foreignKey: "CategoryId" });
+  Product.belongsTo(Category, { foreignKey: "CategoryId" });
 }
-export default setupAssociation;
