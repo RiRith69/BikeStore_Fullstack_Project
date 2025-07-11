@@ -1,5 +1,4 @@
-import sequelize from "./src/DB/database.js";
-import Product from "./src/Models/Product.js";
+import Product from "../Models/Product.js";
 
 export async function getAllProducts() {
   try {

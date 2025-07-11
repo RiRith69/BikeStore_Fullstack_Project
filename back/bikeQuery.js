@@ -22,7 +22,7 @@ export async function mountainbike() {
   }
 }
 
-// mountainbike();
+mountainbike();
 
 export async function roadbike() {
   try {
@@ -122,4 +122,4 @@ export async function kidbike() {
     console.log("Kids Cycle not found", err);
   }
 }
-kidbike();
+// kidbike();

@@ -1,4 +1,4 @@
-import * as productrepository from "../../sequelizeProductQuery.js";
+import * as productrepository from "../Repository/sequelizeProductQuery.js";
 
 export async function getAllProducts(req, res) {
   try {

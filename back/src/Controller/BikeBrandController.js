@@ -1,4 +1,4 @@
-import * as brandrepository from "../../sequelizeBrandQuery.js";
+import * as brandrepository from "../Repository/sequelizeBrandQuery.js";
 
 // GET /api/brands
 export async function getAllBrands(req, res) {

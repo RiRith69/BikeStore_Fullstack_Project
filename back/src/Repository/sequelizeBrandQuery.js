@@ -1,5 +1,4 @@
-import sequelize from "./src/DB/database.js";
-import Brand from "./src/Models/Brand.js";
+import Brand from "../Models/Brand.js";
 
 export async function getAllBrands() {
   try {
