@@ -81,7 +81,7 @@
 
 
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Shop from "./Pages/Shop";
+import Home from "./Pages/Home";
 import ShopCategory from "./Pages/ShopCategory";
 import Product from "./Pages/Product";
 import Cart from "./Pages/Cart";
@@ -97,9 +97,20 @@ function AppContent() {
     <>
       {!hideLayout && <Navbar />}
       <Routes>
-        <Route path="/" element={<Shop />} />
-        <Route path="/adults" element={<ShopCategory category="adults" />} />
-        <Route path="/kids" element={<ShopCategory category="kids" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/category/:mountaincycle" element={<ShopCategory category="mountaincycle" />} />
+        <Route path="/category/:roadcycle" element={<ShopCategory category="roadcycle" />} />
+        <Route path="/category/:citycycle" element={<ShopCategory category="citycycle" />} />
+        <Route path="/category/:hybridcycle" element={<ShopCategory category="hybridcycle" />} />
+        <Route path="/category/:kidscycle" element={<ShopCategory category="kidscycle" />} />
+        <Route path="/category/:touringcycle" element={<ShopCategory category="touringcycle" />} />
+        <Route path="/category/:electroniccycle" element={<ShopCategory category="electroniccycle" />} />
+        <Route path="/category/:bikeparts" element={<ShopCategory category="bikeparts" />} />
+        <Route path="/brand/:giant" element={<ShopCategory category="giant" />} />
+        <Route path="/brand/:asuma" element={<ShopCategory category="asuma" />} />
+        <Route path="/brand/:trek" element={<ShopCategory category="trek" />} />
+        <Route path="/brand/:merida" element={<ShopCategory category="merida" />} />
+        <Route path="/brand/:polygon" element={<ShopCategory category="polygon" />} />
         <Route path="/product" element={<Product />}>
           <Route path=":productId" element={<Product />} />
         </Route>
