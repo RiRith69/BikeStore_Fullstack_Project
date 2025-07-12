@@ -138,8 +138,8 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line x1="19" y1="12" x2="5" y2="12" />       {/* horizontal line */}
-                <polyline points="12 19 5 12 12 5" />           {/* left-pointing arrowhead */}
+                <line x1="19" y1="12" x2="5" y2="12" />   
+                <polyline points="12 19 5 12 12 5" />         
               </svg>
             </button>
             <input
@@ -200,7 +200,7 @@ const Navbar = () => {
             ].map((item) => (
               <Link
                 key={item}
-                to={`/${item.toLowerCase().replace(" ", "")}`}
+                to={`/category/${item.toLowerCase().replace(" ", "")}`}
                 className="block w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition"
               >
                 {item}
@@ -242,7 +242,7 @@ const Navbar = () => {
           {["Mountain", "Road", "City", "Kids", "Hybrid", "Touring", "Electronic", "Bike Parts"].map((item) => (
             <Link
               key={item}
-              to={`/${item.toLowerCase().replace(" ", "")}`}
+              to={`/category/${item.toLowerCase().replace(" ", "")}`}
               className="hover:text-teal-600 transition py-1 border-b-2 border-transparent hover:border-teal-600"
             >
               {item}
