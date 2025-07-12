@@ -1,10 +1,11 @@
-// import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+// import "./App.css";
+// import Navbar from "./Components/Navbar/Navbar";
+// import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import Shop from "./Pages/Shop";
 // import ShopCategory from "./Pages/ShopCategory";
 // import Product from "./Pages/Product";
 // import Cart from "./Pages/Cart";
 // import LoginSignup from "./Pages/LoginSignup";
-<<<<<<< HEAD
 // import Footer from "./Components/Footer/Footer";
 
 // function App() {
@@ -31,24 +32,24 @@
 // export default App;
 
 // import "./App.css";
-=======
-// import Signup from "./Pages/Signup";
->>>>>>> 866e25c7269f814757cf57af61b3ee8295e04901
 // import Navbar from "./Components/Navbar/Navbar";
+// import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+// import Shop from "./Pages/Shop";
+// import ShopCategory from "./Pages/ShopCategory";
+// import Product from "./Pages/Product";
+// import Cart from "./Pages/Cart";
+// import LoginSignup from "./Pages/LoginSignup";
 // import Footer from "./Components/Footer/Footer";
 
+// // Inner AppContent to access route info
 // function AppContent() {
 //   const location = useLocation();
-//   // Hide Navbar and Footer for both login and signup routes
-//   const hideLayout = location.pathname === "/login" || location.pathname === "/signup";
+//   const hideLayout = location.pathname === "/login"; // only hide for /login
 
 //   return (
 //     <>
 //       {!hideLayout && <Navbar />}
-<<<<<<< HEAD
 
-=======
->>>>>>> 866e25c7269f814757cf57af61b3ee8295e04901
 //       <Routes>
 //         <Route path="/" element={<Shop />} />
 //         <Route path="/adults" element={<ShopCategory category="adults" />} />
@@ -58,12 +59,8 @@
 //         </Route>
 //         <Route path="/cart" element={<Cart />} />
 //         <Route path="/login" element={<LoginSignup />} />
-//         <Route path="/signup" element={<Signup />} />
 //       </Routes>
-<<<<<<< HEAD
 
-=======
->>>>>>> 866e25c7269f814757cf57af61b3ee8295e04901
 //       {!hideLayout && <Footer />}
 //     </>
 //   );
@@ -71,9 +68,11 @@
 
 // function App() {
 //   return (
-//     <BrowserRouter>
-//       <AppContent />
-//     </BrowserRouter>
+//     <div>
+//       <BrowserRouter>
+//         <AppContent />
+//       </BrowserRouter>
+//     </div>
 //   );
 // }
 
@@ -85,17 +84,13 @@ import ShopCategory from "./Pages/ShopCategory";
 import Product from "./Pages/Product";
 import Cart from "./Pages/Cart";
 import LoginSignup from "./Pages/LoginSignup";
-import Signup from "./Pages/Signup";
-import ForgetPS from "./Pages/ForgetPS";
-import NewPS from "./Pages/NewPS";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import BrandList from "./API/brand.jsx";
+
 function AppContent() {
   const location = useLocation();
-  // Hide Navbar and Footer for login, signup, and forget-password routes
-  const hideLayout = location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/forget-password"
-    || location.pathname === "/new-password";
+  const hideLayout = location.pathname === "/login"; // 👈 Add more if needed
 
   return (
     <>
@@ -156,13 +151,7 @@ function AppContent() {
         </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
-<<<<<<< HEAD
         <Route path="/brands" element={<BrandList />} />
-=======
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forget-password" element={<ForgetPS />} />
-        <Route path="/new-password" element={<NewPS />} />
->>>>>>> 866e25c7269f814757cf57af61b3ee8295e04901
       </Routes>
       {!hideLayout && <Footer />}
     </>
