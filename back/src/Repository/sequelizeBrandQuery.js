@@ -11,48 +11,87 @@ export async function getAllBrands() {
   }
 }
 
-export async function giantBrand() {
+export async function getBrandById(id) {
   try {
-    const giant = await Brand.findOne({ where: { brand_name: "Giant" } });
-    console.log(`Item:`, JSON.stringify(giant, null, 2));
+    const brand = await Brand.findByPk(id);
+    return brand;
   } catch (err) {
-    console.log("Brand not found");
+    console.err("Error server");
   }
 }
-// giantBrand();
-export async function asumaBrand() {
+
+export async function createBrand(brands) {
+  const { brand_name } = brands;
   try {
-    const polygon = await Brand.findOne({ where: { brand_name: "Asama" } });
-    console.log(`Item:`, JSON.stringify(polygon, null, 2));
-  } catch (err) {
-    console.log("Brand not found");
+    const newBrands = await Brand.create({
+      brand_name,
+    });
+    return newBrands;
+  } catch (error) {
+    console.log("Error creating brand", error);
   }
 }
-// asumaBrand();
-export async function trekBrand() {
+
+export async function updateBrand(id, brand_name) {
   try {
-    const trek = await Brand.findOne({ where: { brand_name: "Trek" } });
-    console.log(`Item:`, JSON.stringify(trek, null, 2));
-  } catch (err) {
-    console.log("Brand not found");
+    const [update] = await Brand.update({ brand_name }, { where: { id } });
+    return update;
+  } catch (error) {
+    console.error("Error updating brand:", error.message);
   }
 }
-// trekBrand();
-export async function meridaBrand() {
+
+export async function deleteBrand(id) {
   try {
-    const merida = await Brand.findOne({ where: { brand_name: "Merida" } });
-    console.log(`Item:`, JSON.stringify(merida, null, 2));
-  } catch (err) {
-    console.log("Brand not found");
+    const brands = await Brand.destroy({ where: { id } });
+    return brands;
+  } catch (error) {
+    console.error("Error delete brand:", error.message);
   }
 }
-// meridaBrand();
-export async function polygonBrand() {
-  try {
-    const polygon = await Brand.findOne({ where: { brand_name: "Polygon" } });
-    console.log(`Item:`, JSON.stringify(polygon, null, 2));
-  } catch (err) {
-    console.log("Brand not found");
-  }
-}
-// polygonBrand();
+// export async function giantBrand() {
+//   try {
+//     const giant = await Brand.findOne({ where: { brand_name: "Giant" } });
+//     console.log(`Item:`, JSON.stringify(giant, null, 2));
+//   } catch (err) {
+//     console.log("Brand not found");
+//   }
+// }
+// // giantBrand();
+// export async function asumaBrand() {
+//   try {
+//     const polygon = await Brand.findOne({ where: { brand_name: "Asama" } });
+//     console.log(`Item:`, JSON.stringify(polygon, null, 2));
+//   } catch (err) {
+//     console.log("Brand not found");
+//   }
+// }
+// // asumaBrand();
+// export async function trekBrand() {
+//   try {
+//     const trek = await Brand.findOne({ where: { brand_name: "Trek" } });
+//     console.log(`Item:`, JSON.stringify(trek, null, 2));
+//   } catch (err) {
+//     console.log("Brand not found");
+//   }
+// }
+// // trekBrand();
+// export async function meridaBrand() {
+//   try {
+//     const merida = await Brand.findOne({ where: { brand_name: "Merida" } });
+//     console.log(`Item:`, JSON.stringify(merida, null, 2));
+//   } catch (err) {
+//     console.log("Brand not found");
+//   }
+// }
+// // meridaBrand();
+// export async function polygonBrand() {
+//   try {
+//     const polygon = await Brand.findOne({ where: { brand_name: "Polygon" } });
+
+//     console.log(`Item:`, JSON.stringify(polygon, null, 2));
+//   } catch (err) {
+//     console.log("Brand not found");
+//   }
+// }
+// // polygonBrand();

@@ -1,14 +1,14 @@
 import React from "react";
-import Home from "../Components/Home/Home.jsx";
+import HomeHero from "../Components/Home/Home.jsx";
 import Popular from "../Components/Popular/Popular.jsx";
 import Offers from "../Components/Offers/Offers.jsx";
 import NewCollection from "../Components/NewCollection/NewCollection.jsx";
 import NewsLetter from "../Components/NewsLetter/NewsLetter.jsx";
 
-const Shop = () => {
+const Home = () => {
   return (
     <div>
-      <Home />
+      <HomeHero />
       <Popular />
       <Offers />
       <NewCollection />
@@ -17,4 +17,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default Home;

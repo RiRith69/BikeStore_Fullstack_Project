@@ -1,11 +1,9 @@
-import express, { json } from "express";
-const app = express();
-const authMiddleware = (...roles) => {
+function authorizeRoles(...allowedRoles) {
   return (req, res, next) => {
-    if (!roles.includes(req.user.roles)) {
-      return res.status(403).json({ message: "Roles not allow" });
+    const userRole = req.user?.role;
+    if (!allowedRoles.includes(userRole)) {
+      return res.status(403).json({ message: "Access denied" });
     }
     next();
   };
-};
-export default authMiddleware;
+}

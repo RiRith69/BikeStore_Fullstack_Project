@@ -23,7 +23,7 @@ async function run() {
     console.log("✅ Connected successfully");
 
     // Sync DB schema (be cautious with alter in production)
-    await sequelize.sync({ alter: true });
+    await sequelize.sync();
     console.log("✅ Synchronized successfully");
   } catch (err) {
     console.error("❌ Cannot connect to database:", err);

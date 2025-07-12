@@ -7,5 +7,6 @@ const Product = sequelize.define("Product", {
   price: DataTypes.DECIMAL(10, 2),
   is_available: DataTypes.BOOLEAN,
   CategoryId: DataTypes.INTEGER,
+  BrandId: DataTypes.INTEGER,
 });
 export default Product;
