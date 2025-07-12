@@ -1,18 +1,18 @@
-import sequelize from "./src/DB/database.js";
-import Category from "./src/Models/Category.js";
-import Product from "./src/Models/Product.js";
-import setupAssociation from "./src/Models/association.js";
-
+import sequelize from "../DB/database.js";
+import Category from "../Models/Category.js";
+import Product from "../Models/Product.js";
+import setupAssociation from "./../Models/association.js";
 export async function mountainbike() {
   try {
     setupAssociation();
     await sequelize.authenticate();
     const mountain = await Product.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
         {
           model: Category,
           where: { category_name: "Mountain Cycle" },
-          attributes: ["id", "category_name"],
+          attributes: ["category_name"],
         },
       ],
     });
@@ -29,11 +29,12 @@ export async function roadbike() {
     setupAssociation();
     await sequelize.authenticate();
     const road = await Product.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
         {
           model: Category,
           where: { category_name: "Road Cycle" },
-          attributes: ["id", "category_name"],
+          attributes: ["category_name"],
         },
       ],
     });
@@ -42,18 +43,19 @@ export async function roadbike() {
     console.log("Road bike not found", err);
   }
 }
-// roadbike();
+roadbike();
 
 export async function hybridbike() {
   try {
     setupAssociation();
     await sequelize.authenticate();
     const road = await Product.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
         {
           model: Category,
           where: { category_name: "Hybrid Cycle" },
-          attributes: ["id", "category_name"],
+          attributes: ["category_name"],
         },
       ],
     });
@@ -62,18 +64,19 @@ export async function hybridbike() {
     console.log("Hybrid bike not found", err);
   }
 }
-// hybridbike();
+hybridbike();
 
 export async function touringbike() {
   try {
     setupAssociation();
     await sequelize.authenticate();
     const touring = await Product.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
         {
           model: Category,
           where: { category_name: "Touring Cycle" },
-          attributes: ["id", "category_name"],
+          attributes: ["category_name"],
         },
       ],
     });
@@ -82,18 +85,19 @@ export async function touringbike() {
     console.log("Touring Cycle not found", err);
   }
 }
-// touringbike();
+touringbike();
 
 export async function electricbike() {
   try {
     setupAssociation();
     await sequelize.authenticate();
     const electric = await Product.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
         {
           model: Category,
           where: { category_name: "Electric Cycle" },
-          attributes: ["id", "category_name"],
+          attributes: ["category_name"],
         },
       ],
     });
@@ -102,18 +106,19 @@ export async function electricbike() {
     console.log("Electric Cycle not found", err);
   }
 }
-// electricbike();
+electricbike();
 
 export async function kidbike() {
   try {
     setupAssociation();
     await sequelize.authenticate();
     const kids = await Product.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: [
         {
           model: Category,
           where: { category_name: "Kids Cycle" },
-          attributes: ["id", "category_name"],
+          attributes: ["category_name"],
         },
       ],
     });
@@ -122,4 +127,4 @@ export async function kidbike() {
     console.log("Kids Cycle not found", err);
   }
 }
-// kidbike();
+kidbike();

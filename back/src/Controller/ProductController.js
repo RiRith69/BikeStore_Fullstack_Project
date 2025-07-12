@@ -20,3 +20,58 @@ export async function getProductById(req, res) {
     res.status(500).json({ message: "Server error" });
   }
 }
+
+export async function createProduct(req, res) {
+  const { product_name, model_year, price, is_available, CategoryId, BrandId } =
+    req.body;
+  try {
+    const products = await productrepository.createProduct({
+      product_name,
+      model_year,
+      price,
+      is_available,
+      CategoryId,
+      BrandId,
+    });
+    res.status(201).json(products);
+  } catch (err) {
+    console.error("Error for insert new row");
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+export async function updateProduct(req, res) {
+  const { id } = req.params;
+  const { product_name, model_year, price, is_available, CategoryId, BrandId } =
+    req.body;
+  try {
+    const product = await productrepository.updateProduct(
+      id,
+      product_name,
+      model_year,
+      price,
+      is_available,
+      CategoryId,
+      BrandId
+    );
+    if (!product) {
+      res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ message: "Product update successfully" });
+  } catch (err) {
+    res.status(500).json({ messag: "server error" });
+  }
+}
+
+export async function deleteProduct(req, res) {
+  const { id } = req.params;
+  try {
+    const product = await productrepository.deleteProduct(id);
+    if (!product) {
+      res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json({ message: "Product delete successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+}
