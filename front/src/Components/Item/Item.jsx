@@ -3,7 +3,7 @@ import React from "react";
 const Item = (props) => {
   return (
     <div
-      className="border-2 border-teal-400 rounded-xl shadow-md p-4 bg-white text-center transform transition hover:scale-105 hover:shadow-lg"
+      className="border-2 border-teal-400 rounded-xl shadow-md p-4 bg-white text-center transform transition hover:scale-105 hover:shadow-lg cursor-pointer"
     >
       <img
         src={props.image}

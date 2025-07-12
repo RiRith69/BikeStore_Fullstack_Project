@@ -60,7 +60,6 @@ const Home = () => {
               <div className="flex gap-4 mt-4">
                 <button className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-3 rounded-md font-semibold shadow transition">
                   Shop Now
-                  <img src={arrow_image} alt="Arrow" className="w-4 h-4 invert" />
                 </button>
                 <button className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-5 py-3 rounded-md backdrop-blur transition">
                   View Collections
