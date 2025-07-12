@@ -64,3 +64,14 @@ export async function deleteBrand(req, res) {
     res.status(500).json({ messag: "server error" });
   }
 }
+
+export const getBrandByName = async (req, res) => {
+  const { name } = req.params;
+  try {
+    const brand = await brandrepository.getBrandByName(name);
+    if (!brand) return res.status(404).json({ message: "Brand not found" });
+    res.json(brand);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching brand" });
+  }
+};
