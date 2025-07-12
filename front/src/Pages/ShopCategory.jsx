@@ -1,9 +1,16 @@
 import React, { useEffect, useState} from "react";
 import { useParams} from "react-router-dom";
+import Item from "../Components/Item/Item";
+import imageArray from "../Components/Assets/image";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ShopCategory = () => {
 
+  const navigate = useNavigate();
+  const handleClick = (id) => {
+    navigate(`/product/${id}`);
+  }
   const { categoryName} = useParams();
   const [products, setProducts] = useState([]);
 
@@ -34,20 +41,15 @@ const ShopCategory = () => {
           <p className="col-span-full text-center text-gray-500">No products found in this category.</p>
         ) : (
           products.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white border rounded-lg shadow hover:shadow-md transition"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover rounded-t"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{product.name}</h3>
-                <p className="text-indigo-500 font-medium mt-1">${product.price}</p>
+            <div key={product.id} onClick= {() => handleClick(product.id)}>
+              <Item
+                key={product.id}
+                image={imageArray[product.id]}
+                name={product.product_name}
+                new_price={product.price}
+                old_price={product.old_price ? Number(product.old_price).toFixed(2) : (product.price * 1.2).toFixed(2)}
+                />
               </div>
-            </div>
           ))
         )}
       </div>
