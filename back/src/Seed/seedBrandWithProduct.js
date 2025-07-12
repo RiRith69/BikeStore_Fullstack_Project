@@ -2,7 +2,6 @@ import sequelize from "../DB/database.js";
 import setupAssociation from "../Models/association.js";
 import Brand from "../Models/Brand.js";
 import Product from "../Models/Product.js";
-import Category from "../Models/Category.js";
 
 setupAssociation();
 
@@ -35,7 +34,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "499.99",
       is_available: true,
-      brand_name: "Decathlon",
+      BrandId: 19,
       CategoryId: 1,
     },
     {
@@ -43,7 +42,7 @@ async function seedBrandWithProduct() {
       model_year: 2022,
       price: "1200.00",
       is_available: true,
-      brand_name: "Specialized",
+      BrandId: 18,
       CategoryId: 2,
     },
     {
@@ -51,7 +50,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "999.99",
       is_available: true,
-      brand_name: "Scott",
+      BrandId: 17,
       CategoryId: 3,
     },
     {
@@ -59,7 +58,7 @@ async function seedBrandWithProduct() {
       model_year: 2022,
       price: "899.00",
       is_available: false,
-      brand_name: "Cube",
+      BrandId: 16,
       CategoryId: 4,
     },
     {
@@ -67,7 +66,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "749.99",
       is_available: true,
-      brand_name: "Trek",
+      BrandId: 15,
       CategoryId: 5,
     },
     {
@@ -75,7 +74,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "699.99",
       is_available: true,
-      brand_name: "Giant",
+      BrandId: 14,
       CategoryId: 6,
     },
     {
@@ -83,7 +82,7 @@ async function seedBrandWithProduct() {
       model_year: 2022,
       price: "799.00",
       is_available: true,
-      brand_name: "Merida",
+      BrandId: 13,
       CategoryId: 7,
     },
     {
@@ -91,7 +90,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "249.99",
       is_available: true,
-      brand_name: "Hero Cycle",
+      BrandId: 12,
       CategoryId: 8,
     },
     {
@@ -99,7 +98,7 @@ async function seedBrandWithProduct() {
       model_year: 2022,
       price: "549.00",
       is_available: false,
-      brand_name: "Waltx",
+      BrandId: 11,
       CategoryId: 9,
     },
     {
@@ -107,7 +106,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "899.99",
       is_available: true,
-      brand_name: "Polygon",
+      BrandId: 10,
       CategoryId: 10,
     },
     {
@@ -115,7 +114,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "599.99",
       is_available: true,
-      brand_name: "XDS",
+      BrandId: 9,
       CategoryId: 11,
     },
     {
@@ -123,7 +122,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "899.00",
       is_available: true,
-      brand_name: "XDS",
+      BrandId: 8,
       CategoryId: 12,
     },
     {
@@ -131,7 +130,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "199.99",
       is_available: true,
-      brand_name: "Yongjiu",
+      BrandId: 7,
       CategoryId: 13,
     },
     {
@@ -139,7 +138,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "179.99",
       is_available: true,
-      brand_name: "Yongjiu",
+      BrandId: 6,
       CategoryId: 14,
     },
     {
@@ -147,7 +146,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "349.99",
       is_available: true,
-      brand_name: "Toyo",
+      BrandId: 5,
       CategoryId: 15,
     },
     {
@@ -155,7 +154,7 @@ async function seedBrandWithProduct() {
       model_year: 2022,
       price: "299.99",
       is_available: true,
-      brand_name: "Toyo",
+      BrandId: 4,
       CategoryId: 16,
     },
     {
@@ -163,7 +162,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "2499.99",
       is_available: true,
-      brand_name: "Miyata",
+      BrandId: 3,
       CategoryId: 13,
     },
     {
@@ -171,7 +170,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "1799.99",
       is_available: true,
-      brand_name: "Miyata",
+      BrandId: 2,
       CategoryId: 12,
     },
     {
@@ -179,7 +178,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "1299.99",
       is_available: true,
-      brand_name: "Bridgestone Cycle",
+      BrandId: 1,
       CategoryId: 14,
     },
     {
@@ -187,7 +186,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "1599.99",
       is_available: true,
-      brand_name: "Bridgestone Cycle",
+      BrandId: 1,
       CategoryId: 11,
     },
     {
@@ -195,7 +194,7 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "399.99",
       is_available: true,
-      brand_name: "Asama",
+      BrandId: 2,
       CategoryId: 12,
     },
     {
@@ -203,14 +202,14 @@ async function seedBrandWithProduct() {
       model_year: 2023,
       price: "499.99",
       is_available: true,
-      brand_name: "Asama",
+      BrandId: 3,
       CategoryId: 4,
     },
   ];
 
   try {
     await sequelize.authenticate();
-    await sequelize.sync(); // use { force: true } cautiously
+    await sequelize.sync({ alter: true }); // use { force: true } cautiously
     console.log("✅ Database synced");
 
     // Insert brands
@@ -221,7 +220,7 @@ async function seedBrandWithProduct() {
     });
     console.log(`✅ Inserted ${createdBrands.length} brands successfully`);
 
-    // Create a map from brand_name to brand.id
+    // Create a map from Brand_name to brand.id
     const brandMap = {};
     createdBrands.forEach((brand) => {
       brandMap[brand.brand_name] = brand.id;
@@ -233,7 +232,7 @@ async function seedBrandWithProduct() {
       model_year: p.model_year,
       price: p.price,
       is_available: p.is_available,
-      BrandId: brandMap[p.brand_name],
+      BrandId: p.BrandId,
       CategoryId: p.CategoryId,
     }));
 
