@@ -17,7 +17,7 @@ const ShopCategory = () => {
   useEffect( () => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/products`);
+        const res = await axios.get(`http://localhost:4000/api/category/${categoryName}`);
         setProducts(res.data);
         console.log("Hello : ", res.data)
       }
@@ -33,7 +33,7 @@ const ShopCategory = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-6 capitalize text-center text-indigo-600">
-        {products.length} Products
+        {categoryName} Products
       </h1>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

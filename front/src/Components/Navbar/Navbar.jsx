@@ -6,7 +6,7 @@ import logo from "../Assets/logo.svg";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const brandOptions = ["Giant", "Asuma", "Trek", "Merida", "Polygon"];
+  const brandOptions = ["All Brands", "Giant", "Asuma", "Trek", "Merida", "Polygon"];
 
 
   return (

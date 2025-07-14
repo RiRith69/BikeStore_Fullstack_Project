@@ -1,5 +1,4 @@
 import React from "react";
-import arrow_image from "../Assets/arrow-image.png";
 import bike_hero from "../Assets/hero.jpg";
 
 const Home = () => {
