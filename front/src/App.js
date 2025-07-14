@@ -31,7 +31,6 @@
 
 // export default App;
 
-
 // import "./App.css";
 // import Navbar from "./Components/Navbar/Navbar";
 // import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
@@ -50,7 +49,7 @@
 //   return (
 //     <>
 //       {!hideLayout && <Navbar />}
-      
+
 //       <Routes>
 //         <Route path="/" element={<Shop />} />
 //         <Route path="/adults" element={<ShopCategory category="adults" />} />
@@ -61,7 +60,7 @@
 //         <Route path="/cart" element={<Cart />} />
 //         <Route path="/login" element={<LoginSignup />} />
 //       </Routes>
-      
+
 //       {!hideLayout && <Footer />}
 //     </>
 //   );
@@ -79,7 +78,6 @@
 
 // export default App;
 
-
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./Pages/Home";
 import ShopCategory from "./Pages/ShopCategory";
@@ -88,6 +86,7 @@ import Cart from "./Pages/Cart";
 import LoginSignup from "./Pages/LoginSignup";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
+import BrandList from "./API/brand.jsx";
 
 function AppContent() {
   const location = useLocation();
@@ -105,8 +104,29 @@ function AppContent() {
         <Route path="/brand/:merida" element={<ShopCategory category="merida" />} />
         <Route path="/brand/:polygon" element={<ShopCategory category="polygon" />} />
         <Route path="/product/:id" element={<ProductDetail />}/>
+        <Route
+          path="/brand/:giant"
+          element={<ShopCategory category="giant" />}
+        />
+        <Route
+          path="/brand/:asuma"
+          element={<ShopCategory category="asuma" />}
+        />
+        <Route path="/brand/:trek" element={<ShopCategory category="trek" />} />
+        <Route
+          path="/brand/:merida"
+          element={<ShopCategory category="merida" />}
+        />
+        <Route
+          path="/brand/:polygon"
+          element={<ShopCategory category="polygon" />}
+        />
+        <Route path="/product" element={<Product />}>
+          <Route path=":productId" element={<Product />} />
+        </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
+        <Route path="/brands" element={<BrandList />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>
@@ -122,4 +142,3 @@ function App() {
 }
 
 export default App;
-
