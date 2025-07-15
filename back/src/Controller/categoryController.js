@@ -10,7 +10,7 @@ export const getProductsByCategory = async (req, res) => {
         road: "Road Cycle",
         hybrid: "Hybrid Cycle",
         touring: "Touring Cycle",
-        electric: "Electric Cycle",
+        electronic: "Electronic Cycle",
         kids: "Kids Cycle",
         city: "City Cycle"
     }
