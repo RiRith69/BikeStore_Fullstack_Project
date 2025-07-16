@@ -49,14 +49,17 @@ export async function deleteBrand(id) {
     console.error("Error delete brand:", error.message);
   }
 }
-// export async function giantBrand() {
-//   try {
-//     const giant = await Brand.findOne({ where: { brand_name: "Giant" } });
-//     console.log(`Item:`, JSON.stringify(giant, null, 2));
-//   } catch (err) {
-//     console.log("Brand not found");
-//   }
-// }
+export async function getBrandByName(brandname) {
+  try {
+    const brand = await Brand.findAll({
+      where: { brand_name: brandname },
+    });
+    return brand;
+  } catch (err) {
+    console.error("Error fetching brand:", err.message);
+  }
+}
+
 // // giantBrand();
 // export async function asumaBrand() {
 //   try {
