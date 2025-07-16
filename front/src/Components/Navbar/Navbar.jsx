@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
-
 import logo from "../Assets/logo.svg";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const brandOptions = ["All Brands", "Giant", "Asuma", "Trek", "Merida", "Polygon"];
-
 
   return (
     <>
@@ -51,15 +49,13 @@ const Navbar = () => {
               fill="none"
               stroke="#2dd4bf"
             >
+
               <path
                 d="M.583.583h2.333l1.564 7.81a1.17 1.17 0 0 0 1.166.94h5.67a1.17 1.17 0 0 0 1.167-.94l.933-4.893H3.5m2.333 8.75a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0m6.417 0a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="absolute -top-2 -right-3 text-xs text-white bg-teal-400 w-5 h-5 rounded-full flex items-center justify-center">
-              3
-            </span>
           </Link>
           <Link
             to="/login"

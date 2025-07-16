@@ -1,25 +1,37 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import imageMap from "../Components/Assets/productImages/imageMap";
+import axios from "axios";
 
 const Cart = () => {
   const [showAddress, setShowAddress] = useState(false);
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: 'Product 1',
-      image: '/product1.jpg',
-      size: 'M',
-      offerPrice: 19.99,
-      quantity: 1
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      image: '/product2.jpg',
-      size: 'L',
-      offerPrice: 29.99,
-      quantity: 2
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const userId = 4;
+        const res = await axios.get("http://localhost:4000/api/cart", {
+          params: { userId},
+        });
+        const cart = res.data;
+
+        if ( cart && cart.Products) {
+          const formattedProducts = cart.Products.map((product) => ({
+            id: product.id,
+            name: product.product_name,
+            image: imageMap[product.id] && imageMap[product.id][0] ? imageMap[product.id][0] : "/default-image.jpg",
+            size: product.size || "N/A",
+            offerPrice: product.price,
+            quantity: product.orderProduct ? product.orderProduct.quantity : 1,
+          }));
+          setProducts(formattedProducts);
+        }
+      }
+      catch ( error) {
+        console.error("Error fetchCart:", error)
+      }
+    };
+    fetchCart();
+  }, [])
 
   const { subtotal, tax, total } = useMemo(() => {
     const subtotal = products.reduce(
@@ -31,17 +43,36 @@ const Cart = () => {
     return { subtotal, tax, total };
   }, [products]);
 
-  const updateQuantity = (index, newQuantity) => {
+  const updateQuantity = async (index, newQuantity) => {
     const quantity = Math.max(1, Math.min(99, Number(newQuantity) || 1));
-    setProducts((prev) => {
-      const copy = [...prev];
-      copy[index] = { ...copy[index], quantity };
-      return copy;
-    });
+    const productId = products[index].id;
+
+    try {
+      await axios.put(`http://localhost:4000/api/cart/${productId}`, {
+        quantity,
+        userId: 4
+      });
+      setProducts((prev) => {
+        const copy = [...prev];
+        copy[index] = { ...copy[index], quantity };
+        return copy;
+      });
+    }
+    catch (error) {
+      console.error("Error at update Function: ", error)
+    }
   };
 
-  const removeProduct = (id) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+  const removeProduct = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/api/cart/${id}`, {
+        data: { userId: 4 }
+      });
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    }
+    catch ( error) {
+      console.error("Error at delete function: ", error)
+    }
   };
 
   return (

@@ -28,19 +28,29 @@ const ProductDetail = () => {
                     setThumbnail("https://via.placeholder.com/500");
                 }
             } catch (error) {
-                console.error("Error loading product: ", error);
+                console.error("Error loading product: ", error.response?.data || error.message);
             }
         };
         fetchProduct();
     }, [id]);
-    const handleClick = () => {
-        if (inCart) {
-            console.log(`Remove from cart: ${product?.name}`)
+    const handleClick = async () => {
+        try {
+            await axios.put("http://localhost:4000/api/cart",  {
+                userId: 4,
+                productID: parseInt(id),
+                quantity: 1,
+            });
+            if (inCart) {
+                console.log(`Remove from cart: ${product?.product_name}`)
+            }
+            else {
+                console.log(`Added to cart: ${product?.product_name}`)
+            }
+            setInCart(!inCart);
         }
-        else {
-            console.log(`Added to cart: ${product?.name}`)
+        catch (error) {
+            console.error("Error handleClick: " , error)
         }
-        setInCart(!inCart);
     };
 
     return product && (
@@ -65,7 +75,7 @@ const ProductDetail = () => {
                 </div>
 
                 <div className="text-sm w-full md:w-1/2">
-                    <h1 className="text-3xl font-medium">{product.name}</h1>
+                    <h1 className="text-3xl font-medium">{product.product_name}</h1>
 
                     <div className="flex items-center gap-0.5 mt-1">
                         {Array(5).fill('').map((_, i) => (
