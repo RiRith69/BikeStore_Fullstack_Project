@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Item from "../Components/Item/Item";
-import imageData from "../Components/Assets/brandProduct/data_product.js";
+import imageData from "../Components/Assets/brandProduct/data_product.js"; // ✅ Use the right import
 import axios from "axios";
 
-// ✅ Use PascalCase for component name
 const SpecificBrand = () => {
   const navigate = useNavigate();
-  const { name } = useParams(); // matches /name/:name route
+  const { name } = useParams();
   const [products, setProducts] = useState([]);
 
   const handleClick = (id) => {
@@ -20,17 +19,15 @@ const SpecificBrand = () => {
         const res = await axios.get(
           `http://localhost:4000/api/brands/name/${name}`
         );
-        setProducts(res.data);
-        console.log("Hello : ", res.data);
+        setProducts(res.data.Products); // ✅ Get the array
       } catch (error) {
         console.error("Failed to load products", error);
       }
     };
-
+  
     fetchProducts();
   }, [name]);
-
-  console.log("Fetched Product: ", products);
+  
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -41,13 +38,13 @@ const SpecificBrand = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.length === 0 ? (
           <p className="col-span-full text-center text-gray-500">
-            No products found in this category.
+            No products found in this brand.
           </p>
         ) : (
           products.map((product) => (
             <div key={product.id} onClick={() => handleClick(product.id)}>
               <Item
-                image={imageData[product.id]}
+                image={imageData[product.id] || imageData[1]} // fallback if index out of range
                 name={product.product_name}
                 new_price={product.price}
                 old_price={
@@ -63,5 +60,4 @@ const SpecificBrand = () => {
     </div>
   );
 };
-
 export default SpecificBrand;

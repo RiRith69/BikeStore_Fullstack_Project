@@ -98,11 +98,11 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:categoryName" element={<ShopCategory />} />
-
+        <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
-        <Route path="/brands/:name" element={<BrandList />} />
-        <Route path="/name/:name" element={<SpecificBrand />} />
+        <Route path="/brands/:name" element={<SpecificBrand />} />
+        {/* <Route path="/name/:name" element={<SpecificBrand />} /> */}
       </Routes>
       {!hideLayout && <Footer />}
     </>
