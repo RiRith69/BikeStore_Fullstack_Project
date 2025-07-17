@@ -81,7 +81,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./Pages/Home";
 import ShopCategory from "./Pages/ShopCategory";
-import ProductDetail from "./Pages/ProductDetail";
+// import ProductDetail from "./Pages/ProductDetail";
 import Cart from "./Pages/Cart";
 import LoginSignup from "./Pages/LoginSignup";
 import Navbar from "./Components/Navbar/Navbar";
@@ -101,8 +101,8 @@ function AppContent() {
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
-        <Route path="/brands/:name" element={<BrandList />} />
-        <Route path="/name/:name" element={<SpecificBrand />} />
+        <Route path="/brands/:name" element={<SpecificBrand />} />
+        <Route path="/brands" element={<BrandList />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>

@@ -1,10 +1,10 @@
 import Item from "../Components/Item/Item.jsx";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import imageArray from "../Components/Assets/image.js";
+// import imageArray from "../Components/Assets/image.js";
 import { useNavigate } from "react-router-dom";
-import imageData from "../Components/Assets/brandProduct/data_product.js";
-// import imageData from "./../Components/Assets/brandProduct/data_product.js";
+// import imageData from "../Components/Assets/brandProduct/data_product.js";
+import imageArray from "../Components/Assets/image.js";
 export default function BrandList() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function BrandList() {
 
   const fetchBrands = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/brands");
+      const res = await axios.get(`http://localhost:4000/api/brands`);
       setProducts(res.data); // expecting brands with products included
     } catch (err) {
       console.error("Failed to fetch brands:", err.message);
@@ -47,7 +47,7 @@ export default function BrandList() {
               >
                 <Item
                   key={product.id}
-                  image={imageData[product.id]}
+                  image={imageArray[product.id]}
                   name={product.product_name}
                   price={product.price}
                 />
