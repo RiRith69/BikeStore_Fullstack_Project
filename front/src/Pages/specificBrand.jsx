@@ -4,7 +4,6 @@ import Item from "../Components/Item/Item";
 import imageData from "../Components/Assets/brandProduct/data_product.js";
 import axios from "axios";
 
-// ✅ Use PascalCase for component name
 const SpecificBrand = () => {
   const navigate = useNavigate();
   const { name } = useParams(); // matches /name/:name route
@@ -30,36 +29,17 @@ const SpecificBrand = () => {
     fetchProducts();
   }, [name]);
 
-  console.log("Fetched Product: ", products);
-
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6 capitalize text-center text-indigo-600">
-        {name} Products
-      </h1>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.length === 0 ? (
-          <p className="col-span-full text-center text-gray-500">
-            No products found in this category.
-          </p>
-        ) : (
-          products.map((product) => (
-            <div key={product.id} onClick={() => handleClick(product.id)}>
-              <Item
-                image={imageData[product.id]}
-                name={product.product_name}
-                new_price={product.price}
-                old_price={
-                  product.old_price
-                    ? Number(product.old_price).toFixed(2)
-                    : (product.price * 1.2).toFixed(2)
-                }
-              />
-            </div>
-          ))
-        )}
-      </div>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+      {products.map((product) => (
+        <Item
+          key={product.id}
+          image={imageData[product.id]} // adjust if your key is different
+          name={product.product_name}
+          price={product.price}
+          onClick={() => handleClick(product.id)}
+        />
+      ))}
     </div>
   );
 };
