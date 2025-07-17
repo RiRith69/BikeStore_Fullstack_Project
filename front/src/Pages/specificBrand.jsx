@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Item from "../Components/Item/Item";
 // import imageData from "../Components/Assets/brandProduct/data_product.js";
+import imageData from "../Components/Assets/brandProduct/data_product.js";
 import axios from "axios";
 import imageArray from "../Components/Assets/image.js";
 
@@ -83,5 +84,4 @@ const SpecificBrand = () => {
     </div>
   );
 };
-
 export default SpecificBrand;
