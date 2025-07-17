@@ -98,6 +98,32 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:categoryName" element={<ShopCategory />} />
+<<<<<<< HEAD
+=======
+        <Route path="/brand/:giant" element={<ShopCategory category="giant" />} />
+        <Route path="/brand/:asuma" element={<ShopCategory category="asuma" />} />
+        <Route path="/brand/:trek" element={<ShopCategory category="trek" />} />
+        <Route path="/brand/:merida" element={<ShopCategory category="merida" />} />
+        <Route path="/brand/:polygon" element={<ShopCategory category="polygon" />} />
+        <Route path="/product/:id" element={<ProductDetail />}/>
+        <Route
+          path="/brand/:giant"
+          element={<ShopCategory category="giant" />}
+        />
+        <Route
+          path="/brand/:asuma"
+          element={<ShopCategory category="asuma" />}
+        />
+        <Route path="/brand/:trek" element={<ShopCategory category="trek" />} />
+        <Route
+          path="/brand/:merida"
+          element={<ShopCategory category="merida" />}
+        />
+        <Route
+          path="/brand/:polygon"
+          element={<ShopCategory category="polygon" />}
+        />
+>>>>>>> 1a51a730ac8cb3d216fc52f0aff786a50e85c9db
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/brands/:name" element={<BrandList />} />

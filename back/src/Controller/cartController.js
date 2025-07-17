@@ -1,8 +1,8 @@
-import * as cartRepo from "../Repository/CartAPI.js"
+import * as cartRepo from "../Repository/sequelizeCart.js"
 
 export const getCart = async (req, res) => {
   try {
-    const userId  = 4; // = req.user?.id || req.user_id || req.id || 1;
+    const userId  = 4;
     const cartItems = await cartRepo.getCartItems(userId);
     res.json(cartItems);
   } 
@@ -15,7 +15,10 @@ export const getCart = async (req, res) => {
 export const addToCart = async (req, res) => {
   try {
     const { userId, productID, quantity } = req.body;
-    const item = await cartRepo.addToCart({userId, productID, quantity });
+    if (!userId || !productID || !quantity) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+    const item = await cartRepo.addToCart(userId, productID, quantity);
     res.json(item);
   } catch (error) {
     console.error("Error fetching cart:", error);
@@ -25,9 +28,10 @@ export const addToCart = async (req, res) => {
 
 export const updateCartItem = async (req, res) => {
   try {
+    const userId = 4;
     const { id } = req.params;
     const { quantity } = req.body;
-    const item = await cartRepo.updateCartItem(id, quantity);
+    const item = await cartRepo.updateCartItem(userId, id, quantity);
     if (item) {
       res.json(item);
     } 
@@ -43,8 +47,9 @@ export const updateCartItem = async (req, res) => {
 
 export const deleteCartItem = async (req, res) => {
   try {
+    const userId = 4;
     const { id } = req.params;
-    await cartRepo.deleteCartItem(id);
+    await cartRepo.deleteCartItem(userId, id);
     res.json({ message: "Deleted" });
   }
   catch ( error) {
@@ -52,3 +57,16 @@ export const deleteCartItem = async (req, res) => {
     res.status(404).json({ error : "Something went wrong"})
   }
 };
+
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const userId = 4;
+    const { newStatus } = req.body;
+    const order = await cartRepo.updateOrderStatus(userId, newStatus);
+    res.json(order);
+  }
+  catch ( error) {
+    console.error("Error at deleteCartItem func: ", error);
+    res.status(404).json({ error : "Something went wrong"})
+  }
+}
