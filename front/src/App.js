@@ -121,9 +121,6 @@ function AppContent() {
           path="/brand/:polygon"
           element={<ShopCategory category="polygon" />}
         />
-        <Route path="/product" element={<Product />}>
-          <Route path=":productId" element={<Product />} />
-        </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/brands" element={<BrandList />} />
