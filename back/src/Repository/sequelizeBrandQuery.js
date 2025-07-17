@@ -1,10 +1,16 @@
 import Brand from "../Models/Brand.js";
+import Product from "../Models/Product.js";
 
 export async function getAllBrands() {
   try {
     // await sequelize.authenticate(); //
 
-    const brands = await Brand.findAll(); //
+    const brands = await Brand.findAll({
+      include: {
+        model: Product,
+        attributes: ["id", "product_name", "model_year", "price"],
+      },
+    });
     return brands;
   } catch (res) {
     console.error("Failed to fetch brands:", err.message);
@@ -13,10 +19,15 @@ export async function getAllBrands() {
 
 export async function getBrandById(id) {
   try {
-    const brand = await Brand.findByPk(id);
+    const brand = await Brand.findByPk(id, {
+      include: {
+        model: Product,
+        attributes: ["id", "product_name", "model_year", "price"],
+      },
+    });
     return brand;
   } catch (err) {
-    console.err("Error server");
+    console.log("Error fetching brand", err);
   }
 }
 
@@ -51,12 +62,18 @@ export async function deleteBrand(id) {
 }
 export async function getBrandByName(brandname) {
   try {
-    const brand = await Brand.findAll({
+    const brand = await Brand.findOne({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       where: { brand_name: brandname },
+      include: {
+        model: Product,
+        attributes: ["product_name", "model_year", "price"],
+      },
     });
     return brand;
   } catch (err) {
     console.error("Error fetching brand:", err.message);
+    throw err;
   }
 }
 

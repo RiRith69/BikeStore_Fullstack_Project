@@ -86,8 +86,8 @@ import Cart from "./Pages/Cart";
 import LoginSignup from "./Pages/LoginSignup";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
-import BrandList from "./API/brand.jsx";
-
+import BrandList from "./Pages/Allbrand.jsx";
+import SpecificBrand from "./Pages/specificBrand.jsx";
 function AppContent() {
   const location = useLocation();
   const hideLayout = location.pathname === "/login"; // 👈 Add more if needed
@@ -98,35 +98,10 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:categoryName" element={<ShopCategory />} />
-        <Route path="/brand/:giant" element={<ShopCategory category="giant" />} />
-        <Route path="/brand/:asuma" element={<ShopCategory category="asuma" />} />
-        <Route path="/brand/:trek" element={<ShopCategory category="trek" />} />
-        <Route path="/brand/:merida" element={<ShopCategory category="merida" />} />
-        <Route path="/brand/:polygon" element={<ShopCategory category="polygon" />} />
-        <Route path="/product/:id" element={<ProductDetail />}/>
-        <Route
-          path="/brand/:giant"
-          element={<ShopCategory category="giant" />}
-        />
-        <Route
-          path="/brand/:asuma"
-          element={<ShopCategory category="asuma" />}
-        />
-        <Route path="/brand/:trek" element={<ShopCategory category="trek" />} />
-        <Route
-          path="/brand/:merida"
-          element={<ShopCategory category="merida" />}
-        />
-        <Route
-          path="/brand/:polygon"
-          element={<ShopCategory category="polygon" />}
-        />
-        <Route path="/product" element={<Product />}>
-          <Route path=":productId" element={<Product />} />
-        </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
-        <Route path="/brands" element={<BrandList />} />
+        <Route path="/brands/:name" element={<BrandList />} />
+        <Route path="/name/:name" element={<SpecificBrand />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>
