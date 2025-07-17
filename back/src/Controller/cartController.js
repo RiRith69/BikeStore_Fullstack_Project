@@ -61,8 +61,8 @@ export const deleteCartItem = async (req, res) => {
 export const updateOrderStatus = async (req, res) => {
   try {
     const userId = 4;
-    newStaus = req.body;
-    const order = await cartRepo.updateOrderStatus(userId, newStaus);
+    const { newStatus } = req.body;
+    const order = await cartRepo.updateOrderStatus(userId, newStatus);
     res.json(order);
   }
   catch ( error) {

@@ -66,12 +66,23 @@ export async function deleteBrand(req, res) {
 }
 
 export const getBrandByName = async (req, res) => {
-  const { name } = req.params;
   try {
-    const brand = await brandrepository.getBrandByName(name);
-    if (!brand) return res.status(404).json({ message: "Brand not found" });
-    res.json(brand);
+    const brandName = req.params.name.toLowerCase();
+    const listAllBrand = {
+      giant: "Giant",
+      asuma: "Asuma",
+      trek: "Trek",
+      merida: "Merida",
+      polygon: "Polygon",
+    };
+    const Brands = listAllBrand[brandName];
+    if (!Brands) {
+      return res.status(404).json({ error: "Brand not found" });
+    }
+    const brand = await brandrepository.getBrandByName(Brands);
+    res.status(200).json(brand);
   } catch (err) {
+    console.log("Error fetching", err);
     res.status(500).json({ message: "Error fetching brand" });
   }
 };

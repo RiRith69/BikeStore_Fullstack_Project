@@ -6,11 +6,11 @@ import {
   getBrandByName,
   updateBrand,
 } from "../Controller/BrandController.js";
-import { getBrandById } from "../Controller/BrandController.js";
+// import { getBrandById } from "../Controller/BrandController.js";
 const brandRouter = Router();
 brandRouter.get("/", getAllBrands);
 brandRouter.get("/name/:name", getBrandByName);
-brandRouter.get("/:id", getBrandById);
+// brandRouter.get("/:id", getBrandById);
 brandRouter.post("/", createBrand);
 brandRouter.put("/:id", updateBrand);
 brandRouter.delete("/:id", deleteBrand);

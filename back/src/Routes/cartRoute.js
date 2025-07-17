@@ -14,6 +14,7 @@ import * as CartController from "../Controller/cartController.js";
 
 const router = express.Router();
 
+
 // 🛡️ Protected routes
 router.get('/', authenticateToken, CartController.getCart);
 router.put('/', authenticateToken, CartController.addToCart);

@@ -96,7 +96,7 @@ export const deleteCartItem = async (userId, cartProductId) => {
 }
 
 const STATUS_FLOW = {
-    Incart: ["Pending, Paid"],
+    Incart: ["Pending", "Paid"],
     Pending: ["Paid", "Cancelled"],
     Paid: ["Shipped"],
     Shipped: ["Delivered", "Returned"],
@@ -118,12 +118,13 @@ export const updateOrderStatus = async ( userId, newStatus) => {
 
     const currentStatus = myOrder.order_status;
     const nextStatus = STATUS_FLOW[currentStatus] || [];
-    if ( !nextStatus.include(newStatus)) {
+    if ( !nextStatus.includes(newStatus)) {
         return { error: "Invailid Status"}
     }
     myOrder.order_status = newStatus;
-    if (newStatus === "Pending" || "Paid") {
-        myCart.order_date = new Date();
+    if (newStatus === "Pending" || newStatus === "Paid") {
+        myOrder.order_date = new Date();
     }
     await myOrder.save();
+    return myOrder;
 }

@@ -1,37 +1,43 @@
 import React, { useState, useEffect, useMemo } from "react";
-import imageMap from "../Components/Assets/productImages/imageMap";
 import axios from "axios";
+import imageMap from "../Components/Assets/productImages/imageMap";
+import Address from "../Components/Address/Address";
 
 const Cart = () => {
-  const [showAddress, setShowAddress] = useState(false);
   const [products, setProducts] = useState([]);
+  const [address, setAddress] = useState(null);
+  const [showAddress, setShowAddress] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("Cash On Delivery");
+
   useEffect(() => {
     const fetchCart = async () => {
       try {
         const userId = 4;
         const res = await axios.get("http://localhost:4000/api/cart", {
-          params: { userId},
+          params: { userId },
         });
-        const cart = res.data;
 
-        if ( cart && cart.Products) {
+        const cart = res.data;
+        if (cart && cart.Products) {
           const formattedProducts = cart.Products.map((product) => ({
             id: product.id,
             name: product.product_name,
-            image: imageMap[product.id] && imageMap[product.id][0] ? imageMap[product.id][0] : "/default-image.jpg",
+            image:
+              imageMap[product.id] && imageMap[product.id][0]
+                ? imageMap[product.id][0]
+                : "/default-image.jpg",
             size: product.size || "N/A",
             offerPrice: product.price,
             quantity: product.orderProduct ? product.orderProduct.quantity : 1,
           }));
           setProducts(formattedProducts);
         }
-      }
-      catch ( error) {
-        console.error("Error fetchCart:", error)
+      } catch (error) {
+        console.error("Error fetchCart:", error);
       }
     };
     fetchCart();
-  }, [])
+  }, []);
 
   const { subtotal, tax, total } = useMemo(() => {
     const subtotal = products.reduce(
@@ -50,34 +56,77 @@ const Cart = () => {
     try {
       await axios.put(`http://localhost:4000/api/cart/${productId}`, {
         quantity,
-        userId: 4
+        userId: 4,
       });
       setProducts((prev) => {
         const copy = [...prev];
         copy[index] = { ...copy[index], quantity };
         return copy;
       });
-    }
-    catch (error) {
-      console.error("Error at update Function: ", error)
+    } catch (error) {
+      console.error("Error at update Function: ", error);
     }
   };
 
   const removeProduct = async (id) => {
     try {
       await axios.delete(`http://localhost:4000/api/cart/${id}`, {
-        data: { userId: 4 }
+        data: { userId: 4 },
       });
       setProducts((prev) => prev.filter((p) => p.id !== id));
-    }
-    catch ( error) {
-      console.error("Error at delete function: ", error)
+    } catch (error) {
+      console.error("Error at delete function: ", error);
     }
   };
 
+  const handlePlaceOrder = async () => {
+    // 1. Cart empty check
+    if (products.length === 0) {
+      alert("Your cart is empty. Please add some products before placing an order.");
+      return;
+    }
+  
+    // 2. Address check
+    if (!address) {
+      alert("Please choose a delivery address.");
+      return;
+    }
+  
+    // 3. Determine order status based on payment method
+    const orderStatus = paymentMethod === "Online Payment" ? "Paid" : "Pending";
+  
+    // 4. Build order payload
+    const orderPayload = {
+      address,
+      items: products,
+      paymentMethod,
+      orderStatus,
+      userId: 4,
+    };
+  
+    try {
+      await axios.post("http://localhost:4000/api/orders", orderPayload);
+  
+      await axios.put("http://localhost:4000/api/cart/status", {
+        newStatus: orderStatus,
+      });
+  
+      alert(
+        `Order placed successfully! Your payment method is "${paymentMethod}". Status: ${orderStatus}`
+      );
+      setProducts([]);
+      setAddress(null);
+      setPaymentMethod("Cash On Delivery");
+    } catch (error) {
+      console.error("Order failed:", error);
+      alert("Order failed. Please try again.");
+    }
+  };
+  
+
   return (
     <div className="flex flex-col md:flex-row py-16 max-w-6xl w-full px-6 mx-auto gap-8">
-      {/* LEFT */}
+      {/* LEFT: Cart Items */}
       <div className="flex-1 max-w-4xl">
         <h1 className="text-3xl font-semibold mb-8 text-center">Shopping Cart</h1>
 
@@ -95,7 +144,6 @@ const Cart = () => {
                 key={product.id}
                 className="grid grid-cols-[2fr_1fr_1fr] items-center py-4 border-b border-gray-200 last:border-none relative"
               >
-                {/* Remove button at top right of product */}
                 <button
                   onClick={() => removeProduct(product.id)}
                   className="absolute top-2 right-2 text-teal-500 hover:text-teal-700 text-xl font-bold"
@@ -104,7 +152,6 @@ const Cart = () => {
                   ×
                 </button>
 
-                {/* Product Info */}
                 <div className="flex items-center gap-4 md:gap-6">
                   <img
                     src={product.image}
@@ -117,7 +164,6 @@ const Cart = () => {
                   </div>
                 </div>
 
-                {/* Quantity Controls */}
                 <div className="flex justify-center">
                   <div className="flex items-center rounded overflow-hidden border">
                     <button
@@ -137,7 +183,6 @@ const Cart = () => {
                   </div>
                 </div>
 
-                {/* Subtotal */}
                 <div className="text-center font-medium text-gray-800">
                   ${(product.offerPrice * product.quantity).toFixed(2)}
                 </div>
@@ -166,7 +211,7 @@ const Cart = () => {
         </button>
       </div>
 
-      {/* Summary */}
+      {/* RIGHT: Order Summary */}
       <div className="max-w-[360px] w-full bg-gray-50 p-5 border rounded-lg shadow sticky top-4">
         <h2 className="text-xl font-semibold mb-4 text-center">Order Summary</h2>
         <hr className="mb-4" />
@@ -174,7 +219,18 @@ const Cart = () => {
           <p className="font-medium uppercase">Delivery Address</p>
           <div className="relative mt-2">
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">No address found</span>
+              <span className="text-gray-500">
+                {address ? (
+                  address.province === "Phnom Penh" ? (
+                    `Selected: Phnom Penh, Khan ${address.khan}, Street ${address.streetNo}`
+                  ) : (
+                    `Selected: ${address.district}, ${address.province}`
+                  )
+                ) : (
+                  "No address found"
+                )}
+              </span>
+
               <button
                 onClick={() => setShowAddress(!showAddress)}
                 className="text-indigo-500 hover:underline"
@@ -183,26 +239,22 @@ const Cart = () => {
               </button>
             </div>
             {showAddress && (
-              <div className="absolute top-10 left-0 bg-white border rounded shadow text-sm w-full z-10 mt-2">
-                <p
-                  onClick={() => setShowAddress(false)}
-                  className="p-2 hover:bg-gray-100 cursor-pointer"
-                >
-                  New York, USA
-                </p>
-                <p
-                  onClick={() => setShowAddress(false)}
-                  className="p-2 text-indigo-500 hover:bg-indigo-50 text-center cursor-pointer"
-                >
-                  Add Address
-                </p>
+              <div className="mt-2">
+                <Address onSave={(add) => {
+                  setAddress(add);
+                  setShowAddress(false);
+                }} />
               </div>
             )}
           </div>
+
           <p className="font-medium uppercase mt-6">Payment Method</p>
-          <select className="w-full border mt-2 rounded px-2 py-2">
-            <option>Cash On Delivery</option>
-            <option>Online Payment</option>
+          <select
+            className="w-full border mt-2 rounded px-2 py-2"
+            onChange={(e) => setPaymentMethod(e.target.value)}
+          >
+            <option value="Cash On Delivery">Cash On Delivery</option>
+            <option value="Online Payment">Online Payment</option>
           </select>
         </div>
         <hr className="my-4" />
@@ -224,7 +276,10 @@ const Cart = () => {
             <span>${total.toFixed(2)}</span>
           </div>
         </div>
-        <button className="w-full mt-6 py-3 bg-teal-500 text-white rounded hover:bg-teal-600 transition">
+        <button
+          onClick={handlePlaceOrder}
+          className="w-full mt-6 py-3 bg-teal-500 text-white rounded hover:bg-teal-600 transition"
+        >
           Place Order
         </button>
       </div>
