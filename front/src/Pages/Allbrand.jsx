@@ -4,7 +4,8 @@ import axios from "axios";
 // import imageArray from "../Components/Assets/image.js";
 import { useNavigate } from "react-router-dom";
 // import imageData from "../Components/Assets/brandProduct/data_product.js";
-import imageArray from "../Components/Assets/image.js";
+// import imageArray from "../Components/Assets/image.js";
+import imageData from "../Components/Assets/brandProduct/data_product.js";
 export default function BrandList() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function BrandList() {
 
   const fetchBrands = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/brands`);
+      const res = await axios.get(`http://localhost:4000/api/brands/all`);
       setProducts(res.data); // expecting brands with products included
     } catch (err) {
       console.error("Failed to fetch brands:", err.message);
@@ -39,15 +40,15 @@ export default function BrandList() {
           </p>
         ) : (
           products.map((brand) =>
-            brand.Products.map((product, index) => (
+            brand.Products.map((product) => (
               <div
-                key={product.id || index}
+                key={product.id}
                 onClick={() => handleClick(product.id)}
                 className="cursor-pointer hover:scale-105 transition-transform"
               >
                 <Item
                   key={product.id}
-                  image={imageArray[product.id]}
+                  image={imageData[product.id]}
                   name={product.product_name}
                   price={product.price}
                 />

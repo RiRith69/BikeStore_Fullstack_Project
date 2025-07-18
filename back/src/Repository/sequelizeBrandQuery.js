@@ -20,6 +20,7 @@ export async function getAllBrands() {
 export async function getBrandById(id) {
   try {
     const brand = await Brand.findByPk(id, {
+      attributes: ["id", "brand_name"],
       include: {
         model: Product,
         attributes: ["id", "product_name", "model_year", "price"],
@@ -67,7 +68,7 @@ export async function getBrandByName(brandname) {
       where: { brand_name: brandname },
       include: {
         model: Product,
-        attributes: ["product_name", "model_year", "price"],
+        attributes: ["productId", "product_name", "model_year", "price"],
       },
     });
     return brand;

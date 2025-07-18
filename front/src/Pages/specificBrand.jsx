@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Item from "../Components/Item/Item";
-// import imageData from "../Components/Assets/brandProduct/data_product.js";
 import imageData from "../Components/Assets/brandProduct/data_product.js";
 import axios from "axios";
-import imageArray from "../Components/Assets/image.js";
-
-// Optional fallback image
-const fallbackImage = "/default-product.png"; // Ensure this exists in your public folder
 
 const SpecificBrand = () => {
-  const { name } = useParams(); // URL param for brand name
   const navigate = useNavigate();
-
+  const { name } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,36 +16,57 @@ const SpecificBrand = () => {
   };
 
   useEffect(() => {
-    const fetchBrand = async () => {
-      setLoading(true);
-      setError(null);
-
+    const fetchProducts = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(
           `http://localhost:4000/api/brands/name/${name}`
         );
-        if (res.data && res.data.Products) {
-          setProducts(res.data.Products);
+
+        console.log("API Response:", res.data); // Debugging
+
+        if (res.data?.Products && Array.isArray(res.data.Products)) {
+          // Ensure each product has required fields
+          const validatedProducts = res.data.Products.map((product) => ({
+            id: product.id || Math.random().toString(36).substring(2, 9),
+            product_name: product.product_name || "Unnamed Product",
+            price: product.price || 0,
+            old_price: product.old_price || (product.price * 1.2).toFixed(2),
+            image: product.image || "default", // Fallback image key
+          }));
+
+          setProducts(validatedProducts);
         } else {
-          setProducts([]);
+          throw new Error("Invalid products data structure");
         }
-      } catch (err) {
-        setError("Failed to fetch brand products. Please try again.");
-        console.error(err);
+      } catch (error) {
+        console.error("Failed to load products", error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBrand();
+    fetchProducts();
   }, [name]);
 
+  // Get first image key from imageData as fallback
+  const fallbackImage = Object.keys(imageData)[0] || null;
+
   if (loading) {
-    return <div className="p-4 text-gray-700">Loading products...</div>;
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-10 text-center">
+        <p>Loading {name} products...</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="p-4 text-red-600">{error}</div>;
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-10 text-center text-red-500">
+        <p>Error loading products: {error}</p>
+      </div>
+    );
   }
 
   return (
@@ -63,25 +78,32 @@ const SpecificBrand = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.length === 0 ? (
           <p className="col-span-full text-center text-gray-500">
-            No products found for "{name}".
+            No products found in this brand.
           </p>
         ) : (
-          products.map((product) => (
-            <div
-              key={product.id}
-              onClick={() => handleClick(product.id)}
-              className="cursor-pointer hover:scale-105 transition-transform"
-            >
-              <Item
-                image={imageArray[product.id] || fallbackImage}
-                name={product.product_name}
-                price={product.price}
-              />
-            </div>
-          ))
+          products.map((product) => {
+            // Debug each product's data
+            console.log("Rendering product:", product);
+
+            return (
+              <div
+                key={product.id}
+                onClick={() => handleClick(product.id)}
+                className="cursor-pointer hover:shadow-lg transition-shadow"
+              >
+                <Item
+                  image={imageData[product.image] || imageData[fallbackImage]}
+                  name={product.product_name}
+                  new_price={product.price}
+                  old_price={product.old_price}
+                />
+              </div>
+            );
+          })
         )}
       </div>
     </div>
   );
 };
+
 export default SpecificBrand;
