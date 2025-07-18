@@ -172,7 +172,7 @@ const Navbar = () => {
                 {brandOptions.map((brand) => (
                   <Link
                     key={brand}
-                    to={`/brands/${brand.toLowerCase()}`}
+                    to={`/brands/${brand.replace(" ", "").toLowerCase()}`}
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                   >
                     {brand}
@@ -226,7 +226,7 @@ const Navbar = () => {
               {brandOptions.map((brand) => (
                 <Link
                   key={brand}
-                  to={`/brands/${brand.toLowerCase()}`}
+                  to={`/brands/${brand.replace(" ", "").toLowerCase()}`}
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   {brand}
