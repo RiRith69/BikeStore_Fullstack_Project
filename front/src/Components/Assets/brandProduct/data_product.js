@@ -12,8 +12,7 @@ import image12 from "./image12.png";
 import image13 from "./image13.png";
 import image14 from "./image14.png";
 import image15 from "./image15.png";
-const imageData = [
-  null,
+const imageData = {
   image1,
   image2,
   image3,
@@ -28,5 +27,5 @@ const imageData = [
   image13,
   image14,
   image15,
-];
+};
 export default imageData;
