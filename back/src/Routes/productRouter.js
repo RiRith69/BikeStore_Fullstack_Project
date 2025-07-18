@@ -6,8 +6,8 @@ import {
   getProductById,
   updateProduct,
 } from "../Controller/ProductController.js";
-import { verifyToken } from "../Middleware/verifyToken.js";
-import { authorizeRoles } from "../Middleware/authorizeRole.js";
+// import { verifyToken } from "../Middleware/verifyToken.js";
+// import { authorizeRoles } from "../Middleware/authorizeRole.js";
 const productRouter = Router();
 productRouter.get("/", getAllProducts);
 productRouter.get("/:id", getProductById);
