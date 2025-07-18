@@ -68,7 +68,7 @@ export async function getBrandByName(brandname) {
       where: { brand_name: brandname },
       include: {
         model: Product,
-        attributes: ["productId", "product_name", "model_year", "price"],
+        attributes: ["id", "product_name", "model_year", "price"],
       },
     });
     return brand;
