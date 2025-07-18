@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from "react";
 import { useParams} from "react-router-dom";
 import Item from "../Components/Item/Item";
-import imageArray from "../Components/Assets/image";
+import imageArray from "../Components/Assets/productImages/imageMap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -32,7 +32,7 @@ const ShopCategory = () => {
   console.log("Fetched Product: ", products)
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6 capitalize text-center text-indigo-600">
+      <h1 className="text-3xl font-bold mb-6 capitalize text-center text-teal-600">
         {categoryName} Products
       </h1>
 
@@ -44,7 +44,7 @@ const ShopCategory = () => {
             <div key={product.id} onClick= {() => handleClick(product.id)}>
               <Item
                 key={product.id}
-                image={imageArray[product.id]}
+                image={imageArray[product.id][0]}
                 name={product.product_name}
                 new_price={product.price}
                 old_price={product.old_price ? Number(product.old_price).toFixed(2) : (product.price * 1.2).toFixed(2)}

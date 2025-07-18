@@ -25,6 +25,8 @@ import P7IMG2 from "./P7IMG2.jpeg";
 import P7IMG3 from "./P7IMG3.jpeg";
 import P8IMG1 from "./P8IMG1.jpeg";
 import P8IMG2 from "./P8IMG2.png";
+import P22IMG1 from "./P22IMG1.jpeg";
+import P9IMG1 from "./P9IMG1.jpeg";
 
 const imageMap = {
     1: [P1Navy, P1Red, P1LGreen, P1Kid],
@@ -35,10 +37,24 @@ const imageMap = {
     6: [P6IMG1, P6IMG2, P6IMG3, P6IMG1],
     7: [P7IMG1, P7IMG2, P7IMG3, P7IMG1],
     8: [P8IMG1, P8IMG2, P8IMG1, P8IMG2],
-    9: [null],
+    9: [P9IMG1, P9IMG1, P9IMG1, P9IMG1],
     10: [null],
     11: [null],
-    12: [null]
+    12: [null],
+    13: [null],
+    14: [null],
+    15: [null],
+    16: [null],
+    17: [null],
+    18: [null],
+    19: [null],
+    20: [null],
+    21: [null],
+    22: [P22IMG1, P22IMG1, P22IMG1, P22IMG1],
+    23: [null],
+    24: [null],
+    25: [null],
+    26: [null]
 }
 
 export default imageMap;

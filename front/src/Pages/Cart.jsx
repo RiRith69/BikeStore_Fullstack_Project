@@ -1,21 +1,27 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import imageMap from "../Components/Assets/productImages/imageMap";
+import ABAQR from "../Components/Payment/ABAQR.png";
+import ACQR from "../Components/Payment/ACQR.png";
 import Address from "../Components/Address/Address";
+import OnlinePaymentModal from "../Components/Payment/Payment";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [address, setAddress] = useState(null);
   const [showAddress, setShowAddress] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("Cash On Delivery");
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedBank, setSelectedBank] = useState("");
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [showQROnly, setShowQROnly] = useState(false);
+
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
         const userId = 4;
-        const res = await axios.get("http://localhost:4000/api/cart", {
-          params: { userId },
-        });
+        const res = await axios.get(`http://localhost:4000/api/cart/${userId}`);
 
         const cart = res.data;
         if (cart && cart.Products) {
@@ -93,9 +99,14 @@ const Cart = () => {
     }
   
     // 3. Determine order status based on payment method
-    const orderStatus = paymentMethod === "Online Payment" ? "Paid" : "Pending";
-  
-    // 4. Build order payload
+    if ( paymentMethod === "Online Payment") {
+      setShowPaymentModal(true);
+      return;
+    }
+    await completeOrder("Pending");
+  }
+
+  const completeOrder = async (orderStatus) => {
     const orderPayload = {
       address,
       items: products,
@@ -117,7 +128,11 @@ const Cart = () => {
       setProducts([]);
       setAddress(null);
       setPaymentMethod("Cash On Delivery");
-    } catch (error) {
+      setShowPaymentModal(false);
+      setSelectedBank("");
+      setAgreeToTerms(false);
+    } 
+    catch (error) {
       console.error("Order failed:", error);
       alert("Order failed. Please try again.");
     }
@@ -257,6 +272,33 @@ const Cart = () => {
             <option value="Online Payment">Online Payment</option>
           </select>
         </div>
+        {showPaymentModal && (
+          <OnlinePaymentModal
+            products={products}
+            selectedBank={selectedBank}
+            setSelectedBank={setSelectedBank}
+            agreeToTerms={agreeToTerms}
+            setAgreeToTerms={setAgreeToTerms}
+            onCancel={(type) => {
+              if (type === "showQR") {
+                setShowQROnly(true);
+              } else {
+                setShowPaymentModal(false);
+              }
+            }}
+            showQR={showQROnly}
+            total={total}
+            qrImage={
+              selectedBank === "ABA"
+                ? ABAQR
+                : selectedBank === "KHQR"
+                ? ACQR
+                : selectedBank === "ACLEDA"
+                ? ACQR
+                : ABAQR
+            }
+          />
+        )}
         <hr className="my-4" />
         <div className="space-y-2 text-gray-600">
           <div className="flex justify-between">
