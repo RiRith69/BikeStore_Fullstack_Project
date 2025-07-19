@@ -5,6 +5,7 @@ import ABAQR from "../Components/Payment/ABAQR.png";
 import ACQR from "../Components/Payment/ACQR.png";
 import Address from "../Components/Address/Address";
 import OnlinePaymentModal from "../Components/Payment/Payment";
+import ModalPortal from "../Components/ModalPortal/ModalPortal";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -15,6 +16,7 @@ const Cart = () => {
   const [selectedBank, setSelectedBank] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [showQROnly, setShowQROnly] = useState(false);
+  const [paymentStage, setPaymentStage] = useState("selection");
 
 
   useEffect(() => {
@@ -135,6 +137,16 @@ const Cart = () => {
     catch (error) {
       console.error("Order failed:", error);
       alert("Order failed. Please try again.");
+    }
+  };
+  const handlePaymentSubmit = () => {
+    if (paymentStage === "selection") {
+      setShowQROnly(true);
+      setPaymentStage("qr");
+    } else if (paymentStage === "qr") {
+      completeOrder("Paid");
+      setPaymentStage("complete");
+      setShowPaymentModal(false);
     }
   };
   
@@ -273,31 +285,35 @@ const Cart = () => {
           </select>
         </div>
         {showPaymentModal && (
-          <OnlinePaymentModal
-            products={products}
-            selectedBank={selectedBank}
-            setSelectedBank={setSelectedBank}
-            agreeToTerms={agreeToTerms}
-            setAgreeToTerms={setAgreeToTerms}
-            onCancel={(type) => {
-              if (type === "showQR") {
-                setShowQROnly(true);
-              } else {
-                setShowPaymentModal(false);
+          <ModalPortal>
+            <OnlinePaymentModal
+              products={products}
+              selectedBank={selectedBank}
+              setSelectedBank={setSelectedBank}
+              agreeToTerms={agreeToTerms}
+              setAgreeToTerms={setAgreeToTerms}
+              onCancel={(type) => {
+                if (type === "showQR") {
+                  setShowQROnly(false);
+                  setPaymentStage("selection");
+                } else {
+                  setShowPaymentModal(false);
+                }
+              }}
+              onSubmit={handlePaymentSubmit}
+              showQR={showQROnly || paymentStage === "qr"}
+              total={total}
+              qrImage={
+                selectedBank === "ABA"
+                  ? ABAQR
+                  : selectedBank === "KHQR"
+                  ? ACQR
+                  : selectedBank === "ACLEDA"
+                  ? ACQR
+                  : ABAQR
               }
-            }}
-            showQR={showQROnly}
-            total={total}
-            qrImage={
-              selectedBank === "ABA"
-                ? ABAQR
-                : selectedBank === "KHQR"
-                ? ACQR
-                : selectedBank === "ACLEDA"
-                ? ACQR
-                : ABAQR
-            }
-          />
+            />
+          </ModalPortal>
         )}
         <hr className="my-4" />
         <div className="space-y-2 text-gray-600">
