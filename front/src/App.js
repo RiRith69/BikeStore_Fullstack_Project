@@ -21,7 +21,7 @@ function AppContent() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
-        <Route path="/" element={<BrandList />} />
+        {/* <Route path="/" element={<BrandList />} />   */}
         <Route path="/brands/:name" element={<SpecificBrand />} />
       </Routes>
       {!hideLayout && <Footer />}

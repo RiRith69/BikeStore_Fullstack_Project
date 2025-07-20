@@ -17,8 +17,10 @@ const SpecificBrand = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        if (name === "allbrands" ) {
-          const res = await axios.get("http://localhost:4000/api/brands/allbrands")
+        if (name === "allbrands") {
+          const res = await axios.get(
+            "http://localhost:4000/api/brands/allbrands"
+          );
           console.log("Brand Products Response:", res.data);
           if (Array.isArray(res.data)) {
             setProducts(res.data);
@@ -27,8 +29,7 @@ const SpecificBrand = () => {
           } else {
             throw new Error("Unexpected response format");
           }
-        }
-        else {
+        } else {
           const res = await axios.get(
             `http://localhost:4000/api/brands/name/${name}`
           );
