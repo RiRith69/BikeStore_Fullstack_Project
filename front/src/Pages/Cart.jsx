@@ -109,18 +109,21 @@ const Cart = () => {
   }
 
   const completeOrder = async (orderStatus) => {
+    const userId = 4;
     const orderPayload = {
-      address,
-      items: products,
+      status: orderStatus,
+      products: products.map(p => ({
+        id: p.id,
+        quantity: p.quantity,
+      })),
       paymentMethod,
-      orderStatus,
-      userId: 4,
+      total,
     };
   
     try {
-      await axios.post("http://localhost:4000/api/orders", orderPayload);
+      await axios.post(`http://localhost:4000/api/order/${userId}`, orderPayload);
   
-      await axios.put("http://localhost:4000/api/cart/status", {
+      await axios.put(`http://localhost:4000/api/cart/userId/${userId}`, {
         newStatus: orderStatus,
       });
   
