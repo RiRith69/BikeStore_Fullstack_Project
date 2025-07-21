@@ -1,11 +1,18 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../Assets/logo.svg";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const brandOptions = ["All Brands", "Giant", "Asuma", "Trek", "Merida", "Polygon"];
+  const brandOptions = [
+    "All Brands",
+    "Giant",
+    "Asama",
+    "Trek",
+    "Merida",
+    "Polygon",
+  ];
 
   return (
     <>
@@ -13,7 +20,11 @@ const Navbar = () => {
       <nav className="flex items-center justify-between px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
-          <img className="h-12 sm:h-14 w-auto" src={logo} alt="Bike Store Logo" />
+          <img
+            className="h-12 sm:h-14 w-auto"
+            src={logo}
+            alt="Bike Store Logo"
+          />
         </Link>
 
         {/* Search - Desktop */}
@@ -49,7 +60,6 @@ const Navbar = () => {
               fill="none"
               stroke="#2dd4bf"
             >
-
               <path
                 d="M.583.583h2.333l1.564 7.81a1.17 1.17 0 0 0 1.166.94h5.67a1.17 1.17 0 0 0 1.167-.94l.933-4.893H3.5m2.333 8.75a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0m6.417 0a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0"
                 strokeLinecap="round"
@@ -134,8 +144,8 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line x1="19" y1="12" x2="5" y2="12" />   
-                <polyline points="12 19 5 12 12 5" />         
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
               </svg>
             </button>
             <input
@@ -159,14 +169,16 @@ const Navbar = () => {
               Home
             </Link>
           </div>
-        
+
           {/* Brands dropdown */}
           <div className="group w-full">
             <button className="flex justify-between items-center w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition">
               Brands
-              <span className="transition-transform duration-200 group-hover:rotate-180">▾</span>
+              <span className="transition-transform duration-200 group-hover:rotate-180">
+                ▾
+              </span>
             </button>
-        
+
             <div className="max-h-0 overflow-hidden group-hover:max-h-96 transition-all duration-300 ease-in-out">
               <div className="flex flex-col mt-2 border border-gray-200 rounded bg-white shadow-inner">
                 {brandOptions.map((brand) => (
@@ -181,7 +193,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-        
+
           {/* Categories list */}
           <div className="flex flex-col w-full space-y-2">
             {[
@@ -203,7 +215,7 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-        </div>          
+        </div>
       )}
 
       {/* Sub-navigation Desktop */}
@@ -235,7 +247,16 @@ const Navbar = () => {
             </div>
           </div>
 
-          {["Mountain", "Road", "City", "Kids", "Hybrid", "Touring", "Electronic", "Bike Parts"].map((item) => (
+          {[
+            "Mountain",
+            "Road",
+            "City",
+            "Kids",
+            "Hybrid",
+            "Touring",
+            "Electronic",
+            "Bike Parts",
+          ].map((item) => (
             <Link
               key={item}
               to={`/category/${item.toLowerCase().replace(" ", "")}`}
@@ -246,7 +267,6 @@ const Navbar = () => {
           ))}
         </div>
       </div>
-
     </>
   );
 };

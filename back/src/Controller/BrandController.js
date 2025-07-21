@@ -71,7 +71,7 @@ export const getBrandByName = async (req, res) => {
 
     const listAllBrand = {
       giant: "Giant",
-      asuma: "Asama",
+      asama: "Asama",
       trek: "Trek",
       merida: "Merida",
       polygon: "Polygon",

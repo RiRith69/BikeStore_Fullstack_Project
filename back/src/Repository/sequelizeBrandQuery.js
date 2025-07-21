@@ -64,6 +64,7 @@ export async function deleteBrand(id) {
 export async function getBrandByName(brandname) {
   try {
     const brand = await Brand.findOne({
+      where: { brand_name: brandname },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       where: { brand_name: brandname },
       include: {
