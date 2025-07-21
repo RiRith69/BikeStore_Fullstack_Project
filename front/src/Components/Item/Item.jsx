@@ -5,7 +5,7 @@ const Item = (props) => {
     <div
       className=" h-full border-2 border-teal-400 rounded-xl shadow-md p-4 bg-teal-50 text-center transform transition hover:scale-105 hover:shadow-lg cursor-pointer"
     >
-      <div className="w-full h-[80%] mb-3 flex items-center justify-center overflow-hidden">
+      <div className="w-full h-[70%] mb-3 flex items-center justify-center overflow-hidden">
         <img
           src={props.image}
           alt={props.name}

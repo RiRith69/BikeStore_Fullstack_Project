@@ -21,14 +21,10 @@ const SpecificBrand = () => {
           const res = await axios.get(
             "http://localhost:4000/api/brands/allbrands"
           );
-          console.log("Brand Products Response:", res.data);
-          if (Array.isArray(res.data)) {
-            setProducts(res.data);
-          } else if (Array.isArray(res.data.Products)) {
-            setProducts(res.data.Products);
-          } else {
-            throw new Error("Unexpected response format");
-          }
+          const allProducts = res.data.flatMap(brand => brand.Products || []);
+
+          setProducts(allProducts);
+          console.log("Brand Products Response:", allProducts);
         } else {
           const res = await axios.get(
             `http://localhost:4000/api/brands/name/${name}`
