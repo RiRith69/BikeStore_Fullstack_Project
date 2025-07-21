@@ -75,3 +75,15 @@ export async function deleteProduct(req, res) {
     res.status(500).json({ message: "Server error" });
   }
 }
+
+export const searchProduct = async (req, res) => {
+  const { query } = req.query;
+  try {
+    const products = await productrepository.searchProduct(query);
+    res.status(200).json(products);
+  }
+  catch (error) {
+    console.error("Error at search: ", error);
+    res.status(500).json({error : "Error at search"});
+  }
+ }
