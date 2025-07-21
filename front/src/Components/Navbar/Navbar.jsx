@@ -91,10 +91,10 @@ const Navbar = () => {
             onClick={() => setSearchOpen(true)}
           >
             <svg
-              width="20"
-              height="20"
+              width="24"
+              height="24"
               fill="none"
-              stroke="currentColor"
+              stroke="#2dd4bf"
               viewBox="0 0 16 16"
             >
               <path
@@ -120,7 +120,7 @@ const Navbar = () => {
               />
             </svg>
           </Link>
-          <Link to="/account" className="relative cursor-pointer">
+          {/* <Link to="/account" className="relative cursor-pointer">
             <svg
               width="24"
               height="24"
@@ -134,6 +134,12 @@ const Navbar = () => {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
+          </Link> */}
+          <Link
+            to="/login"
+            className="px-4 py-1 bg-teal-400 hover:bg-teal-500 text-white rounded-full transition text-sm"
+          >
+            Login
           </Link>
           {/* Menu button */}
           <button
@@ -143,7 +149,7 @@ const Navbar = () => {
             <svg
               className="w-6 h-6"
               fill="none"
-              stroke="currentColor"
+              stroke="#2dd4bf"
               viewBox="0 0 24 24"
             >
               {open ? (
