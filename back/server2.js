@@ -4,7 +4,8 @@ import brandRouter from "./src/Routes/brandRouter.js";
 import productRouter from "./src/Routes/productRouter.js";
 import cartRouter from "./src/Routes/cartRoute.js";
 import categoryRouter from "./src/Routes/categoryRoute.js";
-import authRouter from "./src/Routes/authRoutes.js";          //ADD THIS
+import authRouter from "./src/Routes/authRoutes.js";
+import orderRouter from "./src/Routes/orderRoute.js";
 
 import dotenv from "dotenv";
 import sequelize from "./src/DB/database.js";
@@ -24,9 +25,10 @@ app.use(cors());
 app.use(json());
 app.use("/api/brands", brandRouter);
 app.use("/api/products", productRouter);
-app.use("/api/cart", cartRouter)
-app.use("/api/category", categoryRouter)
-app.use("/api/auth", authRouter);                         //ADD THIS LINE
+app.use("/api/cart", cartRouter);
+app.use("/api/category", categoryRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/order", orderRouter);
 
 const PORT = 4000;
 app.listen(PORT, () => {
