@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Item from "../Components/Item/Item";
-import imageArray from "../Components/Assets/productImages/imageMap";
 import imageData from "./../Components/Assets/brandProduct/data_product.js";
 import axios from "axios";
 
@@ -22,7 +21,7 @@ const SpecificBrand = () => {
           const res = await axios.get(
             "http://localhost:4000/api/brands/allbrands"
           );
-          const allProducts = res.data.flatMap(brand => brand.Products || []);
+          const allProducts = res.data.flatMap((brand) => brand.Products || []);
 
           setProducts(allProducts);
           console.log("Brand Products Response:", allProducts);
@@ -47,29 +46,29 @@ const SpecificBrand = () => {
 
     fetchProducts();
   }, [name]);
-  const deleteProduct = async (id) => {
-    try {
-      const res = await axios.delete(
-        `http://localhost:4000/api/products/${id}`
-      );
-      console.log(res.data.message);
-      if (Array.isArray(res.data.Products)) {
-        setProducts(res.data.Products);
-      } else if (Array.isArray(res.data)) {
-        setProducts(res.data);
-      } else {
-        console.log("Unhandled format:", res.data);
-        throw new Error("Unexpected response format");
-      }
+  // const deleteProduct = async (id) => {
+  //   try {
+  //     const res = await axios.delete(
+  //       `http://localhost:4000/api/products/${id}`
+  //     );
+  //     console.log(res.data.message);
+  //     if (Array.isArray(res.data.Products)) {
+  //       setProducts(res.data.Products);
+  //     } else if (Array.isArray(res.data)) {
+  //       setProducts(res.data);
+  //     } else {
+  //       console.log("Unhandled format:", res.data);
+  //       throw new Error("Unexpected response format");
+  //     }
 
-      // Optionally refresh the product list
-    } catch (err) {
-      console.error(
-        "Error deleting product:",
-        err.response?.data?.message || err.message
-      );
-    }
-  };
+  //     // Optionally refresh the product list
+  //   } catch (err) {
+  //     console.error(
+  //       "Error deleting product:",
+  //       err.response?.data?.message || err.message
+  //     );
+  //   }
+  // };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -105,12 +104,12 @@ const SpecificBrand = () => {
                 </div>
 
                 {/* Delete button positioned on image */}
-                <button
+                {/* <button
                   onClick={() => deleteProduct(product.id)}
                   className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700"
                 >
                   Delete
-                </button>
+                </button> */}
               </div>
             ))
           )}

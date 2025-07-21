@@ -1,23 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../Assets/logo.svg";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  // const brandOptions = [
-  //   "All Brands",
-  //   "Giant",
-  //   "Asama",
-  //   "Trek",
-  //   "Merida",
-  //   "Polygon",
-  // ];
+
   const brandOptions = [
     "All Brands",
     "Giant",
-    "Asuma",
+    "Asama",
     "Trek",
     "Merida",
     "Polygon",
