@@ -12,7 +12,6 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        // 1. Fetch the product details
         const res = await axios.get(`http://localhost:4000/api/products/${id}`);
         const productData = res.data;
 
@@ -28,8 +27,8 @@ const ProductDetail = () => {
         } else {
           setThumbnail("https://via.placeholder.com/500");
         }
-
-        const cartRes = await axios.get("http://localhost:4000/api/cart");
+        const userId = 4;
+        const cartRes = await axios.get(`http://localhost:4000/api/cart/${userId}`);
         const cartData = cartRes.data;
 
         const productExists = cartData.Products.some(
@@ -46,20 +45,29 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleClick = async () => {
-    try {
-      await axios.put("http://localhost:4000/api/cart", {
-        userId: 4,
-        productID: id,
-        quantity: 1,
-      });
-      if (inCart) {
-        console.log(`Remove from cart: ${product?.name}`);
-      } else {
-        console.log(`Added to cart: ${product?.name}`);
+    if (inCart) {
+      try {
+        await axios.delete(`http://localhost:4000/api/cart/${product.id}`)
       }
-      setInCart(!inCart);
-    } catch (error) {
-      console.error("Error handleClick: ", error);
+      catch (error) {
+        console.error("Error handleClick 1: ", error);
+      }
+      console.log(`Remove from cart: ${product?.product_name}`);
+      setInCart(false);
+    } 
+    else {
+      try {
+        await axios.put("http://localhost:4000/api/cart", {
+          userId: 4,
+          productID: id,
+          quantity: 1,
+        });
+      }
+      catch (error) {
+        console.error("Error handleClick 2: ", error);
+      }
+      console.log(`Added to cart: ${product?.product_name}`);
+      setInCart(true);
     }
   };
 
@@ -88,13 +96,13 @@ const ProductDetail = () => {
               <img
                 src={thumbnail}
                 alt="Selected product"
-                className="w-full h-full object-cover"
+                className="w-full h-full"
               />
             </div>
           </div>
 
           <div className="text-sm w-full md:w-1/2">
-            <h1 className="text-3xl font-medium">{product.name}</h1>
+            <h1 className="text-3xl font-medium">{product.product_name}</h1>
 
             <div className="flex items-center gap-0.5 mt-1">
               {Array(5)

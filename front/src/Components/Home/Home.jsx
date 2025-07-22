@@ -1,7 +1,8 @@
 import React from "react";
 import bike_hero from "../Assets/hero.jpg";
+import { Link} from "react-router-dom";
 
-const Home = () => {
+const Home = ({onScrollToCollection}) => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -24,10 +25,10 @@ const Home = () => {
                 Experience unmatched performance with our handcrafted bicycles.
               </p>
               <div className="flex flex-row gap-2 mt-4 flex-wrap justify-center">
-                <button className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-md font-semibold shadow transition">
+                <Link to='/brands/allbrands' className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-md font-semibold shadow transition">
                   Shop Now
-                </button>
-                <button className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-md backdrop-blur transition">
+                </Link>
+                <button onClick={onScrollToCollection} className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-md backdrop-blur transition">
                   View Collections
                 </button>
               </div>
@@ -46,7 +47,7 @@ const Home = () => {
           }}
         >
           <div className="absolute inset-0 bg-black/50"></div>
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center h-full py-16 sm:py-24">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center mt-24 mr-5 justify-start h-full py-16 sm:py-24">
             <div className="max-w-xl text-left text-white space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold leading-tight">
                 <span className="text-teal-300">Premium Bikes</span>
@@ -57,10 +58,10 @@ const Home = () => {
                 Experience unmatched performance with our handcrafted bicycles.
               </p>
               <div className="flex gap-4 mt-4">
-                <button className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-3 rounded-md font-semibold shadow transition">
+                <Link to='/brands/allbrands' className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-3 rounded-md font-semibold shadow transition">
                   Shop Now
-                </button>
-                <button className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-5 py-3 rounded-md backdrop-blur transition">
+                </Link >
+                <button onClick={onScrollToCollection} className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-5 py-3 rounded-md backdrop-blur transition">
                   View Collections
                 </button>
               </div>

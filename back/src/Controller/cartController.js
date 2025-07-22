@@ -2,7 +2,8 @@ import * as cartRepo from "../Repository/sequelizeCart.js"
 
 export const getCart = async (req, res) => {
   try {
-    const userId  = 4;
+    const { userId}  = req.params;
+    console.log(userId);
     const cartItems = await cartRepo.getCartItems(userId);
     res.json(cartItems);
   } 
@@ -60,7 +61,7 @@ export const deleteCartItem = async (req, res) => {
 
 export const updateOrderStatus = async (req, res) => {
   try {
-    const userId = 4;
+    const {userId} = req.params;
     const { newStatus } = req.body;
     const order = await cartRepo.updateOrderStatus(userId, newStatus);
     res.json(order);

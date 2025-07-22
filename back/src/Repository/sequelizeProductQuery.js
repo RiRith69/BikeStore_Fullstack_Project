@@ -1,4 +1,5 @@
 import Product from "../Models/Product.js";
+import { Op } from "sequelize";
 
 export async function getAllProducts() {
   try {
@@ -73,4 +74,19 @@ export async function deleteProduct(id) {
   } catch (err) {
     console.error("Error delete product:", err.message);
   }
+}
+
+export const searchProduct = async ( query) => {
+  const products = await Product.findAll({
+    where: {
+      product_name: {
+        [Op.iLike]: `%${query}%`,
+      }
+    }
+  })
+  if ( !products) {
+    console.log("Product Not found")
+    return;
+  }
+  return products;
 }

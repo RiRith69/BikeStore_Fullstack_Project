@@ -64,14 +64,29 @@ export async function updateProduct(req, res) {
 }
 
 export async function deleteProduct(req, res) {
-  const { id } = req.params;
+  const { name } = req.params;
   try {
-    const product = await productrepository.deleteProduct(id);
-    if (!product) {
-      res.status(404).json({ message: "Product not found" });
+    const deletedCount = await productrepository.deleteProduct(name);
+
+    if (deletedCount === 0) {
+      return res.status(404).json({ message: "Product not found" });
     }
-    res.status(200).json({ message: "Product delete successfully" });
+
+    return res.status(200).json({ message: "Product deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    console.error("Error deleting product:", err.message);
+    return res.status(500).json({ message: "Server error" });
   }
 }
+
+export const searchProduct = async (req, res) => {
+  const { query } = req.query;
+  try {
+    const products = await productrepository.searchProduct(query);
+    res.status(200).json(products);
+  }
+  catch (error) {
+    console.error("Error at search: ", error);
+    res.status(500).json({error : "Error at search"});
+  }
+ }

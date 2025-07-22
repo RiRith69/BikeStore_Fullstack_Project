@@ -1,11 +1,29 @@
-import React, { useState} from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../Assets/logo.svg";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const brandOptions = ["All Brands", "Giant", "Asuma", "Trek", "Merida", "Polygon"];
+  const brandOptions = [
+    "All Brands",
+    "Giant",
+    "Asama",
+    "Trek",
+    "Merida",
+    "Polygon",
+  ];
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery) return;
+
+    setSearchOpen(false); // close mobile search overlay if open
+    navigate(`/search/${encodeURIComponent(trimmedQuery)}`);
+    setQuery("");
+  };
 
   return (
     <>
@@ -13,7 +31,11 @@ const Navbar = () => {
       <nav className="flex items-center justify-between px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
-          <img className="h-12 sm:h-14 w-auto" src={logo} alt="Bike Store Logo" />
+          <img
+            className="h-12 sm:h-14 w-auto"
+            src={logo}
+            alt="Bike Store Logo"
+          />
         </Link>
 
         {/* Search - Desktop */}
@@ -22,21 +44,29 @@ const Navbar = () => {
             className="w-full bg-transparent outline-none placeholder-gray-500 text-base px-2"
             type="text"
             placeholder="Search products"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
           />
-          <svg
-            width="20"
-            height="20"
-            fill="none"
-            stroke="#7A7B7D"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M10.8 10.6 15 14.7M9.1 11.7c2.7-1.1 4-4.2 2.8-6.9S7.7.9 4.9 2C2.2 3.2.9 6.3 2 9s4.3 3.9 7.1 2.8"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <button onClick={handleSearch} aria-label="Search">
+            <svg
+              width="20"
+              height="20"
+              fill="none"
+              stroke="#7A7B7D"
+              viewBox="0 0 16 16"
+              className="cursor-pointer"
+            >
+              <path
+                d="M10.8 10.6 15 14.7M9.1 11.7c2.7-1.1 4-4.2 2.8-6.9S7.7.9 4.9 2C2.2 3.2.9 6.3 2 9s4.3 3.9 7.1 2.8"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </div>
 
         {/* Desktop Buttons */}
@@ -49,7 +79,6 @@ const Navbar = () => {
               fill="none"
               stroke="#2dd4bf"
             >
-
               <path
                 d="M.583.583h2.333l1.564 7.81a1.17 1.17 0 0 0 1.166.94h5.67a1.17 1.17 0 0 0 1.167-.94l.933-4.893H3.5m2.333 8.75a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0m6.417 0a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0"
                 strokeLinecap="round"
@@ -62,6 +91,14 @@ const Navbar = () => {
             className="px-6 py-2 bg-teal-400 hover:bg-teal-500 text-white rounded-full transition text-sm"
           >
             Login
+          </Link>
+        </div>
+        <div className="ml-2 sm:ml-4 mt-2 sm:mt-0">
+          <Link
+            to="/add-product"
+            className="block text-center px-3 sm:px-4 py-2 bg-teal-600 text-white text-sm sm:text-base rounded-lg shadow hover:bg-teal-700 transition duration-200 w-full sm:w-auto"
+          >
+            Add Product
           </Link>
         </div>
 
@@ -87,6 +124,36 @@ const Navbar = () => {
               />
             </svg>
           </button>
+          <Link to="/cart" className="relative cursor-pointer">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 14 14"
+              fill="none"
+              stroke="#2dd4bf"
+            >
+              <path
+                d="M.583.583h2.333l1.564 7.81a1.17 1.17 0 0 0 1.166.94h5.67a1.17 1.17 0 0 0 1.167-.94l.933-4.893H3.5m2.333 8.75a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0m6.417 0a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+          <Link to="/account" className="relative cursor-pointer">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2dd4bf"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </Link>
           {/* Menu button */}
           <button
             className="p-2 rounded-md text-gray-700"
@@ -134,13 +201,21 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line x1="19" y1="12" x2="5" y2="12" />   
-                <polyline points="12 19 5 12 12 5" />         
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
               </svg>
             </button>
             <input
               autoFocus
+              type="text"
               placeholder="Search products..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
               className="flex-1 max-w-70% border border-gray-400 rounded-full px-4 py-2 outline-none"
             />
           </div>
@@ -155,25 +230,29 @@ const Navbar = () => {
             <Link
               to="/"
               className="block w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition"
+              onClick={() => setOpen(false)}
             >
               Home
             </Link>
           </div>
-        
+
           {/* Brands dropdown */}
           <div className="group w-full">
             <button className="flex justify-between items-center w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition">
               Brands
-              <span className="transition-transform duration-200 group-hover:rotate-180">▾</span>
+              <span className="transition-transform duration-200 group-hover:rotate-180">
+                ▾
+              </span>
             </button>
-        
+
             <div className="max-h-0 overflow-hidden group-hover:max-h-96 transition-all duration-300 ease-in-out">
               <div className="flex flex-col mt-2 border border-gray-200 rounded bg-white shadow-inner">
                 {brandOptions.map((brand) => (
                   <Link
                     key={brand}
-                    to={`/brands/${brand.toLowerCase()}`}
+                    to={`/brands/${brand.replace(" ", "").toLowerCase()}`}
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    onClick={() => setOpen(false)}
                   >
                     {brand}
                   </Link>
@@ -181,29 +260,30 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-        
+
           {/* Categories list */}
           <div className="flex flex-col w-full space-y-2">
             {[
-              "Mountain Cycle",
-              "Road Cycle",
-              "City Cycle",
-              "Kids Cycle",
-              "Hybrid Cycle",
-              "Touring Cycle",
-              "Electronic Cycle",
+              "Mountain",
+              "Road",
+              "City",
+              "Kids",
+              "Hybrid",
+              "Touring",
+              "Electronic",
               "Bike Parts",
             ].map((item) => (
               <Link
                 key={item}
                 to={`/category/${item.toLowerCase().replace(" ", "")}`}
                 className="block w-full py-2 border-b-2 border-transparent hover:border-teal-600 hover:text-teal-600 transition"
+                onClick={() => setOpen(false)}
               >
                 {item}
               </Link>
             ))}
           </div>
-        </div>          
+        </div>
       )}
 
       {/* Sub-navigation Desktop */}
@@ -226,7 +306,7 @@ const Navbar = () => {
               {brandOptions.map((brand) => (
                 <Link
                   key={brand}
-                  to={`/brands/${brand.toLowerCase()}`}
+                  to={`/brands/${brand.replace(" ", "").toLowerCase()}`}
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   {brand}
@@ -235,7 +315,16 @@ const Navbar = () => {
             </div>
           </div>
 
-          {["Mountain", "Road", "City", "Kids", "Hybrid", "Touring", "Electronic", "Bike Parts"].map((item) => (
+          {[
+            "Mountain",
+            "Road",
+            "City",
+            "Kids",
+            "Hybrid",
+            "Touring",
+            "Electronic",
+            "Bike Parts",
+          ].map((item) => (
             <Link
               key={item}
               to={`/category/${item.toLowerCase().replace(" ", "")}`}
@@ -246,7 +335,6 @@ const Navbar = () => {
           ))}
         </div>
       </div>
-
     </>
   );
 };

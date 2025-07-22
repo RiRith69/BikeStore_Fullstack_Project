@@ -20,6 +20,7 @@ export async function getAllBrands() {
 export async function getBrandById(id) {
   try {
     const brand = await Brand.findByPk(id, {
+      attributes: ["id", "brand_name"],
       include: {
         model: Product,
         attributes: ["id", "product_name", "model_year", "price"],
@@ -63,11 +64,12 @@ export async function deleteBrand(id) {
 export async function getBrandByName(brandname) {
   try {
     const brand = await Brand.findOne({
+      where: { brand_name: brandname },
       attributes: { exclude: ["createdAt", "updatedAt"] },
       where: { brand_name: brandname },
       include: {
         model: Product,
-        attributes: ["product_name", "model_year", "price"],
+        attributes: ["id", "product_name", "model_year", "price"],
       },
     });
     return brand;
