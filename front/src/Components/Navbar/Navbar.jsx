@@ -5,7 +5,6 @@ import logo from "../Assets/logo.svg";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-
   const brandOptions = [
     "All Brands",
     "Giant",
@@ -94,6 +93,14 @@ const Navbar = () => {
             Login
           </Link>
         </div>
+        <div className="ml-2 sm:ml-4 mt-2 sm:mt-0">
+          <Link
+            to="/add-product"
+            className="block text-center px-3 sm:px-4 py-2 bg-teal-600 text-white text-sm sm:text-base rounded-lg shadow hover:bg-teal-700 transition duration-200 w-full sm:w-auto"
+          >
+            Add Product
+          </Link>
+        </div>
 
         {/* Mobile Buttons (search + menu on right) */}
         <div className="md:hidden flex items-center gap-2 ml-auto">
@@ -103,10 +110,10 @@ const Navbar = () => {
             onClick={() => setSearchOpen(true)}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               fill="none"
-              stroke="#2dd4bf"
+              stroke="currentColor"
               viewBox="0 0 16 16"
             >
               <path
@@ -132,7 +139,7 @@ const Navbar = () => {
               />
             </svg>
           </Link>
-          {/* <Link to="/account" className="relative cursor-pointer">
+          <Link to="/account" className="relative cursor-pointer">
             <svg
               width="24"
               height="24"
@@ -146,12 +153,6 @@ const Navbar = () => {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-          </Link> */}
-          <Link
-            to="/login"
-            className="px-4 py-1 bg-teal-400 hover:bg-teal-500 text-white rounded-full transition text-sm"
-          >
-            Login
           </Link>
           {/* Menu button */}
           <button
@@ -161,7 +162,7 @@ const Navbar = () => {
             <svg
               className="w-6 h-6"
               fill="none"
-              stroke="#2dd4bf"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
               {open ? (

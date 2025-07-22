@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Item from "../Components/Item/Item";
 import imageData from "./../Components/Assets/brandProduct/data_product.js";
 import axios from "axios";
+// import { useUser } from "../Context/userContext.jsx";
 
 const SpecificBrand = () => {
   const navigate = useNavigate();

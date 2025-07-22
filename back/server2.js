@@ -11,13 +11,14 @@ import dotenv from "dotenv";
 import sequelize from "./src/DB/database.js";
 
 import setupAssociation from "./src/Models/association.js"; // ✅ IMPORT IT
+import userRouter from "./src/Routes/userRoute.js";
 
 dotenv.config();
 
 // ✅ SET UP ASSOCIATIONS BEFORE USING MODELS
 setupAssociation();
 
-await sequelize.sync(); 
+await sequelize.sync();
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/cart", cartRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/user", userRouter);
 
 const PORT = 4000;
 app.listen(PORT, () => {

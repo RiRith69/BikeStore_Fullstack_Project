@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Home from "./Pages/Home";
 import ShopCategory from "./Pages/ShopCategory";
 import ProductDetail from "./Pages/ProductDetail";
@@ -8,10 +9,16 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import SpecificBrand from "./Pages/specificBrand.jsx";
 import SearchResult from "./Pages/SearchResult.jsx";
+import AddProductPage from "../src/Components/Form/addProduct.jsx";
+import { UserProvider, useUser } from "./Context/userContext.jsx";
+
 function AppContent() {
+  const { login } = useUser();
   const location = useLocation();
   const hideLayout = location.pathname === "/login"; // 👈 Add more if needed
-
+  useEffect(() => {
+    login({ username: "testuser", role: "manager" }); // or role: "manager"
+  }, []);
   return (
     <>
       {!hideLayout && <Navbar />}
@@ -23,6 +30,7 @@ function AppContent() {
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/brands/:name" element={<SpecificBrand />} />
         <Route path="/search/:query" element={<SearchResult />} />
+        <Route path="/add-product" element={<AddProductPage />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>
@@ -32,7 +40,9 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <UserProvider>
+        <AppContent />
+      </UserProvider>
     </BrowserRouter>
   );
 }
