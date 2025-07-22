@@ -2,10 +2,19 @@ import { DataTypes } from "sequelize";
 import sequelize from "../DB/database.js";
 import bcrypt from "bcrypt";
 const User = sequelize.define("User", {
-  first_name: DataTypes.STRING,
-  last_name: DataTypes.STRING,
+  first_name: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  phone_number: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   username: DataTypes.STRING,
-  phone_number: DataTypes.STRING,
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -19,10 +28,12 @@ const User = sequelize.define("User", {
     defaultValue: "customer",
     allowNull: false,
   },
-  LocationId: DataTypes.INTEGER,
 });
 User.beforeCreate(async (user, option) => {
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
 });
 export default User;
+
+
+

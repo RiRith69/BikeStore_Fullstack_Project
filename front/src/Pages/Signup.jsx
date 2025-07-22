@@ -1,7 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+// import { registerUser } from '../api/auth'; // ✅ Import API
 
 const Signup = () => {
+  // ✅ State
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  // ✅ Form handler
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError(''); // ✅ Clear previous errors
+
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          confirmPassword
+        })
+      });
+
+      const data = await response.json();
+
+      console.log("Response status:", response.status);
+      console.log("Response data:", data);
+
+      if (response.ok) {
+        alert("Signup successful");
+        navigate("/login");
+      } else {
+        alert(data.message || "Signup failed");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError("Handling signup failed. Please try again.");
+      console.error("Error details:", error);
+      alert("An error occurred during signup.");
+    }
+  };
+
   return (
     <>
       {/* Top "Go back to home" navigation */}
@@ -27,7 +74,7 @@ const Signup = () => {
 
         {/* Right Signup Form */}
         <div className="flex w-full md:w-1/2 items-center justify-center px-6">
-          <form className="w-full max-w-md flex flex-col items-center">
+          <form onSubmit={handleSignup} className="w-full max-w-md flex flex-col items-center">
             <h2 className="text-4xl text-gray-900 font-medium">Sign up</h2>
             <p className="text-sm text-gray-500/90 mt-3 text-center">
               Create an account to get started
@@ -62,6 +109,8 @@ const Signup = () => {
                 placeholder="Username"
                 className="w-full text-sm placeholder-gray-500/80 outline-none bg-transparent"
                 required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
@@ -75,6 +124,8 @@ const Signup = () => {
                 placeholder="Email"
                 className="w-full text-sm placeholder-gray-500/80 outline-none bg-transparent"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -88,6 +139,8 @@ const Signup = () => {
                 placeholder="Password"
                 className="w-full text-sm placeholder-gray-500/80 outline-none bg-transparent"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
@@ -101,8 +154,13 @@ const Signup = () => {
                 placeholder="Confirm Password"
                 className="w-full text-sm placeholder-gray-500/80 outline-none bg-transparent"
                 required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
+
+            {/* Error message */}
+            {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
             {/* Signup button */}
             <button
