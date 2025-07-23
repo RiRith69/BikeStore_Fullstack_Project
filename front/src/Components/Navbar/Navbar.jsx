@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../Assets/logo.svg";
+import { UserContext } from "./../../Context/userContext.jsx";
 
 const Navbar = () => {
+  const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const brandOptions = [
@@ -37,6 +39,14 @@ const Navbar = () => {
             alt="Bike Store Logo"
           />
         </Link>
+        {user && (user.role === "admin" || user.role === "manager") && (
+          <Link
+            to="/admin"
+            className="text-sm sm:text-base text-white bg-teal-600 px-3 sm:px-4 py-2 rounded-md hover:bg-teal-700 transition duration-200 w-full sm:w-auto text-center"
+          >
+            View Users
+          </Link>
+        )}
 
         {/* Search - Desktop */}
         <div className="hidden md:flex items-center text-base gap-3 border border-gray-400 px-4 py-2 rounded-full w-96 max-w-md">
@@ -93,14 +103,14 @@ const Navbar = () => {
             Login
           </Link>
         </div>
-        <div className="ml-2 sm:ml-4 mt-2 sm:mt-0">
-          <Link
-            to="/add-product"
-            className="block text-center px-3 sm:px-4 py-2 bg-teal-600 text-white text-sm sm:text-base rounded-lg shadow hover:bg-teal-700 transition duration-200 w-full sm:w-auto"
-          >
-            Add Product
-          </Link>
-        </div>
+        {/* Add product */}
+        {/* Add Product Button */}
+        <Link
+          to="/add-product"
+          className="text-center px-3 sm:px-4 py-2 bg-teal-600 text-white text-sm sm:text-base rounded-lg shadow hover:bg-teal-700 transition duration-200 w-full sm:w-auto"
+        >
+          Add Product
+        </Link>
 
         {/* Mobile Buttons (search + menu on right) */}
         <div className="md:hidden flex items-center gap-2 ml-auto">

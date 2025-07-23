@@ -11,6 +11,7 @@ import SpecificBrand from "./Pages/specificBrand.jsx";
 import SearchResult from "./Pages/SearchResult.jsx";
 import AddProductPage from "../src/Components/Form/addProduct.jsx";
 import { UserProvider, useUser } from "./Context/userContext.jsx";
+import AdminUserList from "./Pages/adminSelectUser.jsx";
 
 function AppContent() {
   const { login } = useUser();
@@ -31,6 +32,7 @@ function AppContent() {
         <Route path="/brands/:name" element={<SpecificBrand />} />
         <Route path="/search/:query" element={<SearchResult />} />
         <Route path="/add-product" element={<AddProductPage />} />
+        <Route path="/admin" element={<AdminUserList />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>

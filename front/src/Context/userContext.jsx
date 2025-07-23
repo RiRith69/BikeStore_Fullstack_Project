@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
 // Create context yourself:
-const UserContext = createContext();
+export const UserContext = createContext();
 
 // Custom hook to use the context easily
 export const useUser = () => useContext(UserContext);
