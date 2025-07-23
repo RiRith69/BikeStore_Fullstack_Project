@@ -1,27 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+// import { loginUser } from '../api/auth'; // ✅ import API call
+
 const LoginSignup = () => {
+  // ✅ State for login form
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError(''); // ✅ Clear previous errors
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        alert("Login successful");
+        navigate("/");
+      } else {
+        alert(data.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred during login.");
+    }
+  };
+
+
   return (
     <>
       {/* Top Navigation Bar */}
       <div className="w-full flex items-center justify-between px-6 py-4 border-b relative">
-        {/* Go back to home */}
         <Link to="/" className="flex items-center gap-2 text-sm text-gray-700 hover:text-black">
           <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
           </svg>
           Go back to home
         </Link>
-
-        {/* Decathlon Logo Centered */}
-        {/* <div className="absolute left-1/2 transform -translate-x-1/2">
-          <img
-            src="https://i.pinimg.com/1200x/d7/8e/ea/d78eea976b027c31cee33826cbda41c6.jpg"
-            // src={Logo}
-            alt="Decathlon logo"
-            className="h-6 md:h-8"
-          />
-        </div> */}
       </div>
 
       {/* Main Login Section */}
@@ -37,7 +65,7 @@ const LoginSignup = () => {
 
         {/* Right Login Form */}
         <div className="flex w-full md:w-1/2 items-center justify-center px-6">
-          <form className="w-full max-w-md flex flex-col items-center">
+          <form onSubmit={handleLogin} className="w-full max-w-md flex flex-col items-center">
             <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
             <p className="text-sm text-gray-500/90 mt-3 text-center">
               Welcome back! Please sign in to continue
@@ -71,6 +99,8 @@ const LoginSignup = () => {
                 placeholder="Email id"
                 className="w-full text-sm placeholder-gray-500/80 outline-none bg-transparent"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -84,8 +114,13 @@ const LoginSignup = () => {
                 placeholder="Password"
                 className="w-full text-sm placeholder-gray-500/80 outline-none bg-transparent"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+
+            {/* Error display */}
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
             {/* Remember me & forgot password */}
             <div className="w-full flex items-center justify-between mt-6 text-gray-500/80 text-sm">
