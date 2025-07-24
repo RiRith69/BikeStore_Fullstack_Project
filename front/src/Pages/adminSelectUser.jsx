@@ -7,15 +7,22 @@ const AdminUserList = () => {
   // Fetch all users
   const fetchUsers = async () => {
     const token = localStorage.getItem("token");
+
+    // DEBUG: Decode and log the token
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      console.log("Current User Role:", payload.role);
+      // Should show "admin" or "manager"
+    }
+
     try {
       const res = await axios.get("http://localhost:4000/api/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);
     } catch (err) {
-      console.error("Failed to fetch users", err);
+      console.log("Full error:", err.response?.data || err.message);
+      alert(`ERROR: ${err.response?.data?.message || "Access denied"}`);
     }
   };
 

@@ -23,8 +23,7 @@
 // //         <Route path="/cart" element={<Cart />} />
 // //         <Route path="/login" element={<LoginSignup />} />
 // //         <Route path="/signup" element={<Signup/>} />
-     
-    
+
 // //         <Route path="/brands/:name" element={<SpecificBrand />} />
 // //         {/* <Route path="/name/:name" element={<SpecificBrand />} /> */}
 // //       </Routes>
@@ -44,7 +43,6 @@
 // //   origin: 'http://localhost:3000', // allow frontend origin
 // //   credentials: true
 // // }));
-
 
 // // export default App;
 
@@ -90,7 +88,6 @@
 
 // export default App;
 
-
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "./Pages/Home";
@@ -107,12 +104,12 @@ import AddProductPage from "../src/Components/Form/addProduct.jsx";
 import { UserProvider, useUser } from "./Context/userContext.jsx";
 import AdminUserList from "./Pages/adminSelectUser.jsx";
 
-
 function AppContent() {
   const { login } = useUser();
   const location = useLocation();
 
-  const hideLayout = location.pathname === "/login" || location.pathname === "/signup";
+  const hideLayout =
+    location.pathname === "/login" || location.pathname === "/signup";
 
   console.log("Rendering path:", location.pathname); // Log current route
 
@@ -142,16 +139,12 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <UserProvider>
+    <UserProvider>
+      <BrowserRouter>
         <AppContent />
-      </UserProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 
 export default App;
-
-
-
-

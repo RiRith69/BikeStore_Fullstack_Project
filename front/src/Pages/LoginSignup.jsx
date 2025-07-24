@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 // import { loginUser } from '../api/auth'; // ✅ import API call
 
 const LoginSignup = () => {
   // ✅ State for login form
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(''); // ✅ Clear previous errors
+    setError(""); // ✅ Clear previous errors
     try {
       const response = await fetch("http://localhost:4000/api/auth/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email,
-          password
-        })
+          password,
+        }),
       });
 
       const data = await response.json();
@@ -39,12 +39,14 @@ const LoginSignup = () => {
     }
   };
 
-
   return (
     <>
       {/* Top Navigation Bar */}
       <div className="w-full flex items-center justify-between px-6 py-4 border-b relative">
-        <Link to="/" className="flex items-center gap-2 text-sm text-gray-700 hover:text-black">
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-sm text-gray-700 hover:text-black"
+        >
           <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
           </svg>
@@ -65,7 +67,10 @@ const LoginSignup = () => {
 
         {/* Right Login Form */}
         <div className="flex w-full md:w-1/2 items-center justify-center px-6">
-          <form onSubmit={handleLogin} className="w-full max-w-md flex flex-col items-center">
+          <form
+            onSubmit={handleLogin}
+            className="w-full max-w-md flex flex-col items-center"
+          >
             <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
             <p className="text-sm text-gray-500/90 mt-3 text-center">
               Welcome back! Please sign in to continue
@@ -85,14 +90,20 @@ const LoginSignup = () => {
             {/* Divider */}
             <div className="flex items-center gap-4 w-full my-5">
               <div className="flex-grow h-px bg-gray-300/90"></div>
-              <p className="text-sm text-gray-500/90 whitespace-nowrap">or sign in with email</p>
+              <p className="text-sm text-gray-500/90 whitespace-nowrap">
+                or sign in with email
+              </p>
               <div className="flex-grow h-px bg-gray-300/90"></div>
             </div>
 
             {/* Email input */}
             <div className="flex items-center w-full border border-gray-300/60 h-12 rounded-full px-6 gap-2 bg-white">
               <svg width="16" height="11" fill="#6B7280" viewBox="0 0 16 11">
-                <path fillRule="evenodd" clipRule="evenodd" d="M0 .55.571 0H15.43l.57.55v9.9l-.571.55H.57L0 10.45zm1.143 1.138V9.9h13.714V1.69l-6.503 4.8h-.697zM13.749 1.1H2.25L8 5.356z" />
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M0 .55.571 0H15.43l.57.55v9.9l-.571.55H.57L0 10.45zm1.143 1.138V9.9h13.714V1.69l-6.503 4.8h-.697zM13.749 1.1H2.25L8 5.356z"
+                />
               </svg>
               <input
                 type="email"
@@ -128,7 +139,12 @@ const LoginSignup = () => {
                 <input className="h-4 w-4" type="checkbox" />
                 <span>Remember me</span>
               </label>
-              <Link to="/forget-password" className="underline hover:text-gray-700">Forgot password?</Link>
+              <Link
+                to="/forget-password"
+                className="underline hover:text-gray-700"
+              >
+                Forgot password?
+              </Link>
             </div>
 
             {/* Login button */}
@@ -142,7 +158,12 @@ const LoginSignup = () => {
             {/* Sign up link */}
             <p className="text-gray-500/90 text-sm mt-4">
               Don’t have an account?
-              <Link to="/signup" className="text-indigo-400 hover:underline ml-1">Sign up</Link>
+              <Link
+                to="/signup"
+                className="text-indigo-400 hover:underline ml-1"
+              >
+                Sign up
+              </Link>
             </p>
           </form>
         </div>

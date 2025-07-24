@@ -1,10 +1,20 @@
 // middleware/isAdmin.js
-export default function isAdmin(req, res, next) {
-  const user = req.user; // assuming JWT is decoded already
+const allowedRoles = ["admin", "manager"];
 
-  if (user && (user.role === "admin" || user.role === "manager")) {
-    next();
+export default function isAdmin(req, res, next) {
+  // 1. Check if user is authenticated
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized: Login required" });
+  }
+
+  // 2. Check if user has the right role
+  if (allowedRoles.includes(req.user.role)) {
+    next(); // Allow access
   } else {
-    return res.status(403).json({ message: "Access denied" });
+    // 3. Deny access with a clear message
+    return res.status(403).json({
+      success: false,
+      message: `Access denied. Required role: ${allowedRoles.join(" or ")}`,
+    });
   }
 }

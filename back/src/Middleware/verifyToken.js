@@ -1,27 +1,16 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import { TOKEN_SECRET } from "../config.js"; // adjust based on your setup
 
-dotenv.config();
-
-const JWT_SECRET = process.env.JWT_SECRET || "defaultSecretKey";
-
-export const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"]; // Authorization: Bearer TOKEN
+export const authMiddleware = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token) {
-    return res.status(401).json({ message: "Access denied. Token required." });
-  }
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
 
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // Add user data to request object
-    next(); // Allow to continue
-  } catch (error) {
-    res.status(403).json({ message: "Invalid or expired token." });
-  }
+  jwt.verify(token, TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: "Invalid token" });
+
+    req.user = user;
+    next();
+  });
 };
-
-
-
-

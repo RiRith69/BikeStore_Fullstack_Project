@@ -105,12 +105,14 @@ const Navbar = () => {
         </div>
         {/* Add product */}
         {/* Add Product Button */}
-        <Link
-          to="/add-product"
-          className="text-center px-3 sm:px-4 py-2 bg-teal-600 text-white text-sm sm:text-base rounded-lg shadow hover:bg-teal-700 transition duration-200 w-full sm:w-auto"
-        >
-          Add Product
-        </Link>
+        {user && (user.role === "staff" || user.role === "manager") && (
+          <Link
+            to="/add-product"
+            className="text-sm sm:text-base text-white bg-teal-600 px-3 sm:px-4 py-2 rounded-md hover:bg-teal-700 transition duration-200 w-full sm:w-auto text-center"
+          >
+            Add Product
+          </Link>
+        )}
 
         {/* Mobile Buttons (search + menu on right) */}
         <div className="md:hidden flex items-center gap-2 ml-auto">

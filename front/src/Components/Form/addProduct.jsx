@@ -4,7 +4,10 @@ import { useUser } from "./../../Context/userContext.jsx"; // assuming you have 
 
 export default function AddProductPage() {
   const { user } = useUser();
-
+  console.log("User info", user);
+  if (!user) {
+    return <div>Not log in</div>;
+  }
   if (!user || (user.role !== "staff" && user.role !== "manager")) {
     return (
       <div className="p-8 text-center text-red-600 font-semibold">
